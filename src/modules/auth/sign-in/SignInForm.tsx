@@ -17,10 +17,11 @@ function SignInForm() {
   const setUser = useAuthentication((state) => state.setUser)
   const [isSigningIn, setIsSigningIn] = useState(false)
 
-  const signIn = async ({ email }: FormValues) => {
+  const signIn = async ({ email, password }: FormValues) => {
     setIsSigningIn(true)
     const response = (await signInMock({
       email: email.trim(),
+      password: password.trim(),
     })) as SignInMockResponse
     if (!response) {
       setIsSigningIn(false)

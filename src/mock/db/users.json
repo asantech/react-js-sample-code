@@ -3,30 +3,36 @@
         "email": "BobMartin@gmail.com",
         "username": "bob_martin",
         "firstName": "Bob",
-        "lastName": "Martin"
+        "lastName": "Martin",
+        "password": "860f0934ec2682008b0af1a768e11896cd5ac531da8922a6ff8f166f37b4afaa"
+
     },
     {
         "email": "AlanTurin@gmail.com",
         "username": "alan_turing",
         "firstName": "Alan",
-        "lastName": "Turing"
+        "lastName": "Turing",
+        "password": "a31d0dbf91e8621134a133acb27939c98c1f98f4f7cca47699ee8b1a34a8a1c1"
     },
     {
         "email": "BillGates@gmail.com",
         "username": "bill_gates",
         "firstName": "Bill",
-        "lastName": "Gates"
+        "lastName": "Gates",
+        "password": "9072661b569b51397d87038dcf46a82b5709c476349ccdeba389726a57aad21f"
     },
     {
         "email": "moayeri68@gmail.com",
         "username": "mohammad_hossein_moayeri",
         "firstName": "Mohammad Hossein",
-        "lastName": "Moayeri"
+        "lastName": "Moayeri",
+        "password": "58cde0c34acc8377b6323e5a17c8024679530180624aace50004bbcc4bde7712"
     },
         {
         "email": "m@m.m",
         "username": "john_doe",
         "firstName": "John",
-        "lastName": "Doe"
+        "lastName": "Doe",
+        "password": "63d65bfe030ff5cbaac27bb8c9215bf7b1c635b3a8ed7ee9ad45eccf9e4b2e2f"
     }
 ]
