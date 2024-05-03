@@ -1,0 +1,32 @@
+[
+    {
+        "email": "BobMartin@gmail.com",
+        "username": "bob_martin",
+        "firstName": "Bob",
+        "lastName": "Martin"
+    },
+    {
+        "email": "AlanTurin@gmail.com",
+        "username": "alan_turing",
+        "firstName": "Alan",
+        "lastName": "Turing"
+    },
+    {
+        "email": "BillGates@gmail.com",
+        "username": "bill_gates",
+        "firstName": "Bill",
+        "lastName": "Gates"
+    },
+    {
+        "email": "moayeri68@gmail.com",
+        "username": "mohammad_hossein_moayeri",
+        "firstName": "Mohammad Hossein",
+        "lastName": "Moayeri"
+    },
+        {
+        "email": "m@m.m",
+        "username": "john_doe",
+        "firstName": "John",
+        "lastName": "Doe"
+    }
+]
