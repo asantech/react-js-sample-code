@@ -44,8 +44,8 @@ function SignInForm() {
 
   return (
     <CustomForm2 schema={signInSchema} onSubmit={signIn}>
-      <CustomInput name="email" placeholder="Email" />
-      <CustomInput name="password" placeholder="Password" />
+      <CustomInput label="Email" name="email" placeholder="Email" />
+      <CustomInput label="Password" name="password" placeholder="Password" />
       <div className="text-center">
         <CustomButton
           type="submit"

@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { UseFormRegister, FieldErrors } from "react-hook-form"
 
-import CustomForm, {
+import CustomForm1, {
   FormValues,
-} from "../../../components/common/forms/CustomForm"
+} from "../../../components/common/forms/CustomForm1"
 import CustomInput from "../../../components/common/inputs/CustomInput"
 import CustomButton from "../../../components/common/buttons/CustomButton"
 import { signUpMock } from "../../../services/mocks/auth"
@@ -52,7 +52,7 @@ function SignInForm() {
   }
 
   return (
-    <CustomForm schema={signUpSchema} onSubmit={signUp}>
+    <CustomForm1 schema={signUpSchema} onSubmit={signUp}>
       {({
         register,
         errors,
@@ -99,7 +99,7 @@ function SignInForm() {
           </div>
         </>
       )}
-    </CustomForm>
+    </CustomForm1>
   )
 }
 
