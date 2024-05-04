@@ -6,7 +6,7 @@ export type FormValues = {
   [key: string]: string
 }
 
-type CustomForm = {
+type CustomForm1 = {
   children: ({
     register,
     errors,
@@ -18,7 +18,7 @@ type CustomForm = {
   onSubmit: (formValues: FormValues) => void
 }
 
-function CustomForm({ children, schema, onSubmit }: Readonly<CustomForm>) {
+function CustomForm1({ children, schema, onSubmit }: Readonly<CustomForm1>) {
   const {
     register,
     handleSubmit,
@@ -34,4 +34,4 @@ function CustomForm({ children, schema, onSubmit }: Readonly<CustomForm>) {
   )
 }
 
-export default CustomForm
+export default CustomForm1

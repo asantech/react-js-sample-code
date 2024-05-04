@@ -5,6 +5,8 @@ type CustomInputProps = {
   placeholder?: string
   error?: string
   label?: string
+} & {
+  [key: string]: string
 }
 
 const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(

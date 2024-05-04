@@ -12,6 +12,7 @@ import {
 import useAuth from "../hooks/mocks/authHook"
 import Layout from "../layout/Layout"
 import PrivateRoute from "./PrivateRoute"
+import Loading from "../components/Loading"
 
 const SignUp = lazy(() => import("../pages/auth/sign-up/SignUp"))
 const SignIn = lazy(() => import("../pages/auth/sign-in/SignIn"))
@@ -43,7 +44,7 @@ function MainRoutes() {
   }, [])
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route
           path={routes.AUTH.SIGN_UP}
