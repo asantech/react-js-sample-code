@@ -18,7 +18,7 @@ function Layout() {
   return (
     <div className="flex">
       <div className={clsx(sidebarExpanded ? "w-1/5" : "w-1/12")}>
-        <Sidebar />
+        <Sidebar expanded={sidebarExpanded} />
       </div>
       <div
         className={clsx(sidebarExpanded ? "w-4/5" : "w-11/12", "flex flex-col")}

@@ -737,6 +737,10 @@ video {
   justify-content: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
 .gap-4 {
   gap: 1rem;
 }
@@ -751,6 +755,10 @@ video {
 
 .gap-12 {
   gap: 3rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
 }
 
 .rounded-full {
@@ -905,6 +913,11 @@ video {
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:bg-sky-600:hover {
