@@ -920,6 +920,10 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.\[key\:string\] {
+  key: string;
+}
+
 .hover\:bg-sky-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(2 132 199 / var(--tw-bg-opacity));

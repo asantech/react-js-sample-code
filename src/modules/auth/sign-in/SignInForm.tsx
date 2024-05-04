@@ -1,9 +1,8 @@
 import { useState } from "react"
-import { UseFormRegister, FieldErrors } from "react-hook-form"
 
-import CustomForm, {
+import CustomForm2, {
   FormValues,
-} from "../../../components/common/forms/CustomForm"
+} from "../../../components/common/forms/CustomForm2"
 import CustomInput from "../../../components/common/inputs/CustomInput"
 import CustomButton from "../../../components/common/buttons/CustomButton"
 import { signInMock } from "../../../services/mocks/auth"
@@ -44,38 +43,20 @@ function SignInForm() {
   }
 
   return (
-    <CustomForm schema={signInSchema} onSubmit={signIn}>
-      {({
-        register,
-        errors,
-      }: {
-        register: UseFormRegister<FormValues>
-        errors: FieldErrors
-      }) => (
-        <>
-          <CustomInput
-            placeholder="Email"
-            {...register("email")}
-            error={errors.email?.message as string}
-          />
-          <CustomInput
-            placeholder="Password"
-            {...register("password")}
-            error={errors.password?.message as string}
-          />
-          <div className="text-center">
-            <CustomButton
-              type="submit"
-              variant="primary"
-              isLoading={isSigningIn}
-              isDisabled={isSigningIn}
-            >
-              Submit
-            </CustomButton>
-          </div>
-        </>
-      )}
-    </CustomForm>
+    <CustomForm2 schema={signInSchema} onSubmit={signIn}>
+      <CustomInput name="email" placeholder="Email" />
+      <CustomInput name="password" placeholder="Password" />
+      <div className="text-center">
+        <CustomButton
+          type="submit"
+          variant="primary"
+          isLoading={isSigningIn}
+          isDisabled={isSigningIn}
+        >
+          Submit
+        </CustomButton>
+      </div>
+    </CustomForm2>
   )
 }
 
