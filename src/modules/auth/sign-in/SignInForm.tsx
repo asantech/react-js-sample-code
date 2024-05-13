@@ -6,40 +6,41 @@ import CustomForm2, {
 import CustomInput from "../../../components/common/inputs/CustomInput"
 import CustomButton from "../../../components/common/buttons/CustomButton"
 import { signInMock } from "../../../services/mocks/auth"
-import { useAuthentication, type User } from "../../../store/auth"
+import { useAuthStore, type User } from "../../../store/auth"
 import { signInSchema } from "./SignInForm.schema"
 import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
-import { isAuthenticationDataValid } from "../auth.utils"
+import { hasAuthDataTokens } from "../auth.utils"
 import { type SignInMockResponse } from "../../../services/mocks/auth"
 
 function SignInForm() {
-  const setUser = useAuthentication((state) => state.setUser)
+  const setUser = useAuthStore((state) => state.setUser)
   const [isSigningIn, setIsSigningIn] = useState(false)
 
   const signIn = async ({ email, password }: FormValues) => {
     setIsSigningIn(true)
-    const response = (await signInMock({
+    const signInFormValues = {
       email: email.trim(),
       password: password.trim(),
-    })) as SignInMockResponse
+    }
+    const response = (await signInMock(signInFormValues)) as SignInMockResponse
+
     if (!response) {
       setIsSigningIn(false)
       return
     }
 
-    const isSignInResponseValid = isAuthenticationDataValid(
-      response.authentication
-    )
+    const isSignInResponseValid = hasAuthDataTokens(response.auth)
 
     if (!isSignInResponseValid) {
       setIsSigningIn(false)
       return
     }
 
-    setLocalStorage("authentication", response.authentication)
+    setLocalStorage("auth", response.auth)
     setLocalStorage("user", response.user)
     setUser(getLocalStorage("user") as User)
     setIsSigningIn(false)
+    // redirect here to dashboard
   }
 
   return (

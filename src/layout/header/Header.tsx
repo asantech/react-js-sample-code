@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react"
 
 import CustomButton from "../../components/common/buttons/CustomButton"
-import useAuth from "../../hooks/mocks/authHook"
+import useAuth from "../../hooks/mocks/useAuth"
 
-function Header({ children }: PropsWithChildren) {
+function Header({ children }: Readonly<PropsWithChildren>) {
   const { signOutMock } = useAuth()
   return (
     <header className="flex bg-sky-300 py-4 px-5">

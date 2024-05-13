@@ -8,7 +8,7 @@
 
     },
     {
-        "email": "AlanTurin@gmail.com",
+        "email": "AlanTuring@gmail.com",
         "username": "alan_turing",
         "firstName": "Alan",
         "lastName": "Turing",
@@ -29,10 +29,10 @@
         "password": "58cde0c34acc8377b6323e5a17c8024679530180624aace50004bbcc4bde7712"
     },
         {
-        "email": "m@m.m",
-        "username": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "password": "63d65bfe030ff5cbaac27bb8c9215bf7b1c635b3a8ed7ee9ad45eccf9e4b2e2f"
+        "email": "m@m.com",
+        "username": "m",
+        "firstName": "m",
+        "lastName": "m",
+        "password": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5"
     }
 ]

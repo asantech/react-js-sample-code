@@ -2,45 +2,42 @@ import { useEffect, Suspense, lazy } from "react"
 import { Routes, Route } from "react-router-dom"
 
 import { routes } from "./routes"
-import { useAuthentication } from "../store/auth"
+import { useAuthStore } from "../store/auth"
 import { getLocalStorage } from "../utils/localStorage"
 import {
-  isAuthenticationDataValid,
+  hasAuthDataTokens,
   isUserDataValid,
   isTokenExpired,
 } from "../modules/auth/auth.utils"
-import useAuth from "../hooks/mocks/authHook"
+import useAuth from "../hooks/mocks/useAuth"
 import Layout from "../layout/Layout"
-import PrivateRoute from "./PrivateRoute"
+import ProtectedRoute from "./ProtectedRoute"
 import Loading from "../components/Loading"
 
 const SignUp = lazy(() => import("../pages/auth/sign-up/SignUp"))
 const SignIn = lazy(() => import("../pages/auth/sign-in/SignIn"))
 
 function MainRoutes() {
-  const setUser = useAuthentication((state) => state.setUser)
-  const isAuthenticated = useAuthentication((state) => state.isAuthenticated)
+  const setUser = useAuthStore((state) => state.setUser)
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const { signOutMock } = useAuth()
 
   useEffect(() => {
-    function checkUserAuthenticationOnPageMount() {
-      const authenticationValues = getLocalStorage("authentication")
-      const isValuesValid = isAuthenticationDataValid(authenticationValues)
+    function checkUserAuthOnPageMount() {
+      const authValues = getLocalStorage("auth")
+      const isValuesValid = hasAuthDataTokens(authValues)
       if (!isValuesValid) return
-      const tokenExpired = isTokenExpired(
-        authenticationValues.timestamp,
-        authenticationValues.expirationDuration
-      )
-      if (tokenExpired) {
+      const isRefreshTokenExpired = isTokenExpired(authValues.refreshToken)
+      if (isRefreshTokenExpired) {
         signOutMock()
         return
       }
       const userData = getLocalStorage("user")
       const userDataIsValid = isUserDataValid(userData)
       if (!userDataIsValid) return
-      setUser(userData)
+      setUser({ user: userData, auth: authValues })
     }
-    checkUserAuthenticationOnPageMount()
+    checkUserAuthOnPageMount()
   }, [])
 
   return (
@@ -49,34 +46,34 @@ function MainRoutes() {
         <Route
           path={routes.AUTH.SIGN_UP}
           element={
-            <PrivateRoute
-              isAllowed={!isAuthenticated}
+            <ProtectedRoute
+              isAllowed={!isAuthenticated} // isNotAllowed
               redirectTo={routes.DASHBOARD}
             >
               <SignUp />
-            </PrivateRoute>
+            </ProtectedRoute>
           }
         />
         <Route
           path={routes.AUTH.SIGN_IN}
           element={
-            <PrivateRoute
+            <ProtectedRoute
               isAllowed={!isAuthenticated}
               redirectTo={routes.DASHBOARD}
             >
               <SignIn />
-            </PrivateRoute>
+            </ProtectedRoute>
           }
         />
         <Route
           path={routes.DASHBOARD + "*"}
           element={
-            <PrivateRoute
+            <ProtectedRoute
               isAllowed={isAuthenticated}
               redirectTo={routes.AUTH.SIGN_IN}
             >
               <Layout />
-            </PrivateRoute>
+            </ProtectedRoute>
           }
         />
         <Route path="*" element={<div>Page Not Found</div>} />

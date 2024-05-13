@@ -9,16 +9,20 @@ export type User = {
 }
 
 
-export type UseAuthentication = {
+export type UseAuthStore = {
     isAuthenticated: boolean;
     user: null | User; 
-    setUser: (state: User) => void,
+    accessToken: null | string;
+    refreshToken: null | string;
+    setUser: (state: any) => void,
     removeUser: () => void,
 }
 
-export const useAuthentication: UseBoundStore<StoreApi<UseAuthentication>> = create((set) => ({
+export const useAuthStore: UseBoundStore<StoreApi<UseAuthStore>> = create((set) => ({
     isAuthenticated: false,
     user: null,
-    setUser: () => set((state) => ({ ...state, user: state.user, isAuthenticated: true })),
-    removeUser: () => set((state) => ({...state, user: null, isAuthenticated: false })),
+    accessToken: null,
+    refreshToken: null,
+    setUser: (data:any) => set((state) => ({ ...state, user: data.user, isAuthenticated: true, accessToken: data.auth?.accessToken, refreshToken: data.auth?.refreshToken })),
+    removeUser: () => set((state) => ({...state, user: null, isAuthenticated: false, accessToken: null, refreshToken: null })),
 }))

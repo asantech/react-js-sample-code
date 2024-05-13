@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 type SidebarProps = {
   expanded: boolean
 }
@@ -17,6 +19,9 @@ function Sidebar({ expanded }: Readonly<SidebarProps>) {
             React sample App
           </span>
         )}
+      </div>
+      <div className="p-8">
+        <Link to="/tokens">OAuth</Link>
       </div>
     </aside>
   )

@@ -7,14 +7,14 @@ import CustomForm1, {
 import CustomInput from "../../../components/common/inputs/CustomInput"
 import CustomButton from "../../../components/common/buttons/CustomButton"
 import { signUpMock } from "../../../services/mocks/auth"
-import { useAuthentication, type User } from "../../../store/auth"
+import { useAuthStore, type User } from "../../../store/auth"
 import { signUpSchema } from "./SignUpForm.schema"
 import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
-import { isAuthenticationDataValid } from "../../../modules/auth/auth.utils"
+import { hasAuthDataTokens } from "../../../modules/auth/auth.utils"
 import { type SignInMockResponse } from "../../../services/mocks/auth"
 
 function SignInForm() {
-  const setUser = useAuthentication((state) => state.setUser)
+  const setUser = useAuthStore((state) => state.setUser)
   const [isSigningUp, setIsSigningUp] = useState(false)
 
   const signUp = async ({
@@ -25,27 +25,27 @@ function SignInForm() {
   }: FormValues) => {
     setIsSigningUp(true)
 
-    const response = (await signUpMock({
+    const signUpFormValues = {
       email: email.trim(),
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       password: password.trim(),
-    })) as SignInMockResponse
+    }
+
+    const response = (await signUpMock(signUpFormValues)) as SignInMockResponse
     if (!response) {
       setIsSigningUp(false)
       return
     }
 
-    const isSignInResponseValid = isAuthenticationDataValid(
-      response.authentication
-    )
+    const isSignInResponseValid = hasAuthDataTokens(response.auth)
 
     if (!isSignInResponseValid) {
       setIsSigningUp(false)
       return
     }
 
-    setLocalStorage("authentication", response.authentication)
+    setLocalStorage("auth", response.auth)
     setLocalStorage("user", response.user)
     setUser(getLocalStorage("user") as User)
     setIsSigningUp(false)

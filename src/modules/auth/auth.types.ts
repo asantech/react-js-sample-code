@@ -1,5 +1,5 @@
-export type AuthenticationData = {
+export type AuthData = {
   accessToken: string
   refreshToken: string
-  expirationTime: number
+
 }
