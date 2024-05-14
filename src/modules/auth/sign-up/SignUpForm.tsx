@@ -12,6 +12,12 @@ import { signUpSchema } from "./SignUpForm.schema"
 import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
 import { hasAuthDataTokens } from "../../../modules/auth/auth.utils"
 import { type SignInMockResponse } from "../../../services/mocks/auth"
+import Dropdown1 from "../../../components/common/dropdowns/Dropdown1"
+
+const GENDER_OPTIONS = [
+  { value: 0, label: "Female" },
+  { value: 1, label: "Male" },
+]
 
 function SignInForm() {
   const setUser = useAuthStore((state) => state.setUser)
@@ -75,6 +81,11 @@ function SignInForm() {
             placeholder="Last Name"
             {...register("lastName")}
             error={errors.lastName?.message as string}
+          />
+          <Dropdown1
+            className="mb-5"
+            placeholder="Gender"
+            options={GENDER_OPTIONS}
           />
           <CustomInput
             placeholder="Password"
