@@ -13,6 +13,7 @@ type CustomForm1 = {
   }: {
     register: UseFormRegister<FormValues>
     errors: FieldErrors
+    control: any
   }) => ReactNode
   schema: any
   onSubmit: (formValues: FormValues) => void
@@ -22,6 +23,7 @@ function CustomForm1({ children, schema, onSubmit }: Readonly<CustomForm1>) {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
@@ -29,7 +31,7 @@ function CustomForm1({ children, schema, onSubmit }: Readonly<CustomForm1>) {
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-      {children({ register, errors })}
+      {children({ register, errors, control })}
     </form>
   )
 }
