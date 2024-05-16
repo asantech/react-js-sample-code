@@ -36,8 +36,6 @@ function SignInForm() {
       password: password.trim(),
     }
 
-    console.log("signUpFormValues", signUpFormValues)
-
     const response = (await signUpMock(signUpFormValues)) as SignInMockResponse
     if (!response) {
       setIsSigningUp(false)

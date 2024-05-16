@@ -60,7 +60,7 @@ const Dropdown1 = ({
     }
   }, [])
 
-  const hasOptions = options.length
+  const hasOptions = Boolean(options.length)
 
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>
@@ -84,7 +84,6 @@ const Dropdown1 = ({
       </button>
       {menuDisplayed && (
         <>
-          {!hasOptions && <NoOptionsFoundMessage />}
           {
             <div
               className={clsx(
@@ -92,24 +91,26 @@ const Dropdown1 = ({
                 menuPosition === "top" ? "bottom-14" : "top-14"
               )}
             >
-              {options.map((option: DropdownOption, index: number) => {
-                const key = index
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    className={clsx(
-                      "text-left w-full hover:bg-gray-200 py-3 px-4",
-                      selectedOption === option && "bg-gray-100"
-                    )}
-                    onClick={() => {
-                      selectOption(option)
-                    }}
-                  >
-                    {option.label}
-                  </button>
-                )
-              })}
+              {!hasOptions && <div className="p-4 w-max">Has no options</div>}
+              {hasOptions &&
+                options.map((option: DropdownOption, index: number) => {
+                  const key = index
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      className={clsx(
+                        "text-left w-full hover:bg-gray-200 py-3 px-4",
+                        selectedOption === option && "bg-gray-100"
+                      )}
+                      onClick={() => {
+                        selectOption(option)
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  )
+                })}
             </div>
           }
         </>
@@ -120,11 +121,3 @@ const Dropdown1 = ({
 }
 
 export default Dropdown1
-
-const NoOptionsFoundMessage = () => {
-  return (
-    <div className="absolute bg-white p-4 border-solid border-gray-400 rounded border-2">
-      Has no options
-    </div>
-  )
-}
