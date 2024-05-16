@@ -29,9 +29,9 @@ function SignIn() {
       <div className="max-w-96 mx-auto">
         <div className="mb-10">
           <Dropdown1
+            placeholder="auth flow"
             option={authFlowOptions[0]}
             options={authFlowOptions}
-            placeholder="auth flow"
           />
         </div>
         <h1 className="mb-5 text-center font-bold text-lg">Sign In</h1>

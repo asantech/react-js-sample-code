@@ -78,7 +78,7 @@ const Dropdown1 = forwardRef(
         <input
           ref={ref as any}
           className="w-5 h-5 invisible"
-          type="hidden"
+          type="text"
           {...otherProps}
           value={selectedOption.value}
         />
@@ -97,6 +97,7 @@ const Dropdown1 = forwardRef(
                   return (
                     <button
                       key={key}
+                      type="button"
                       className="text-left w-full hover:bg-gray-100 py-3 px-4"
                       onClick={() => {
                         selectOption(option)

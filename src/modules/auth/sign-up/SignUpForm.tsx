@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { UseFormRegister, FieldErrors, Controller } from "react-hook-form"
+import { UseFormRegister, FieldErrors } from "react-hook-form"
 
 import CustomForm1, {
   FormValues,
@@ -12,7 +12,7 @@ import { signUpSchema } from "./SignUpForm.schema"
 import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
 import { hasAuthDataTokens } from "../../../modules/auth/auth.utils"
 import { type SignInMockResponse } from "../../../services/mocks/auth"
-import Dropdown1 from "../../../components/common/dropdowns/Dropdown1"
+import Dropdown2 from "../../../components/common/dropdowns/Dropdown2"
 
 const GENDER_OPTIONS = [
   { value: 0, label: "Female" },
@@ -66,7 +66,6 @@ function SignInForm() {
       {({
         register,
         errors,
-        control,
       }: {
         register: UseFormRegister<FormValues>
         errors: FieldErrors
@@ -90,24 +89,12 @@ function SignInForm() {
               {...register("lastName")}
               error={errors.lastName?.message as string}
             />
-            <Controller
-              name="gender"
-              control={control}
-              render={({ field }) => (
-                <Dropdown1
-                  className="mb-5"
-                  placeholder="Gender"
-                  {...field}
-                  options={GENDER_OPTIONS}
-                />
-              )}
-            />
-            {/* <Dropdown1
+            <Dropdown2
               className="mb-5"
               placeholder="Gender"
               {...register("gender")}
               options={GENDER_OPTIONS}
-            /> */}
+            />
             <CustomInput
               placeholder="Password"
               {...register("password")}
