@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom"
 
-import { routes } from "../../routes/routes"
-import { removeFromLocalStorage } from "../../utils/localStorage"
-import { useAuthStore } from "../../store/auth"
+import { routes } from "@routes/routes"
+import { removeFromLocalStorage } from "@utils/localStorage"
+import { useAuthStore } from "@store/auth"
 
 const useAuth = () => {
   const navigate = useNavigate()

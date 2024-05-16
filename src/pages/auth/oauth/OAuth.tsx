@@ -1,11 +1,11 @@
 import { useState, useMemo } from "react"
 
-import Counter from "../../../components/timers/Counter"
-import CustomButton from "../../../components/common/buttons/CustomButton"
-import { getUsers } from "../../../services/mocks/users"
-import { User, useAuthStore } from "../../../store/auth"
-import { getLocalStorage } from "../../../utils/localStorage"
-import { getTokenRemainingTime } from "../../../modules/auth/auth.utils"
+import Counter from "@components/timers/Counter"
+import CustomButton from "@components/common/buttons/CustomButton"
+import { getUsers } from "@services/mocks/users"
+import { User } from "@store/auth"
+import { getLocalStorage } from "@utils/localStorage"
+import { getTokenRemainingTime } from "@modules/auth/auth.utils"
 
 function OAuth() {
   const [loadingUsers, setLoadingUsers] = useState(false)

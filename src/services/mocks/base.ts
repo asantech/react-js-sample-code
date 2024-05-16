@@ -1,5 +1,5 @@
-import { AuthData } from "../../modules/auth/auth.types"
-import { User } from "../../store/auth"
+import { AuthData } from "@modules/auth/auth.types"
+import { User } from "@store/auth"
 type UserPublicData = Omit<User, 'password'>
 
 type ReqResType = {

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
-import SignUpForm from "../../../modules/auth/sign-up/SignUpForm"
-import { routes } from "../../../routes/routes"
+import SignUpForm from "@modules/auth/sign-up/SignUpForm"
+import { routes } from "@routes/routes"
 import AuthPageWrapper from "../AuthPageWrapper"
 
 function SignIn() {

@@ -1,9 +1,9 @@
  
 import users from '../../mock/db/users.json'
-import { AuthData } from "../../modules/auth/auth.types"
-import { User } from "../../store/auth"
+import { AuthData } from "@modules/auth/auth.types"
+import { User } from "@store/auth"
 import { makeAuthenticatedReq } from './auth'
-import { getValueAfterDelay } from '../../utils/mock/service' 
+import { getValueAfterDelay } from '@utils/mock/service' 
 
 type UserPublicData = Omit<User, 'password'>
 

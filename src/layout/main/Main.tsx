@@ -1,4 +1,4 @@
-import DashboardRoutes from "../../routes/DashboardRoutes"
+import DashboardRoutes from "@routes/DashboardRoutes"
 
 function Main() {
   return (

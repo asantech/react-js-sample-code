@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 
-import { colors } from "../../constants/colors"
+import { colors } from "@constants/colors"
 
 function AuthPageWrapper({ children }: Readonly<PropsWithChildren>) {
   return (

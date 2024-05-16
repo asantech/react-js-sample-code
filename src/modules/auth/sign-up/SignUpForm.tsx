@@ -1,18 +1,16 @@
 import { useState } from "react"
 import { UseFormRegister, FieldErrors, Controller } from "react-hook-form"
 
-import CustomForm1, {
-  FormValues,
-} from "../../../components/common/forms/CustomForm1"
-import CustomInput from "../../../components/common/inputs/CustomInput"
-import CustomButton from "../../../components/common/buttons/CustomButton"
-import { signUpMock } from "../../../services/mocks/auth"
-import { useAuthStore, type User } from "../../../store/auth"
+import CustomForm1, { FormValues } from "@components/common/forms/CustomForm1"
+import CustomInput from "@components/common/inputs/CustomInput"
+import CustomButton from "@components/common/buttons/CustomButton"
+import { signUpMock } from "@services/mocks/auth"
+import { useAuthStore, type User } from "@store/auth"
 import { signUpSchema } from "./SignUpForm.schema"
-import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
-import { hasAuthDataTokens } from "../../../modules/auth/auth.utils"
-import { type SignInMockResponse } from "../../../services/mocks/auth"
-import Dropdown1 from "../../../components/common/dropdowns/Dropdown1"
+import { setLocalStorage, getLocalStorage } from "@utils/localStorage"
+import { hasAuthDataTokens } from "@modules/auth/auth.utils"
+import { type SignInMockResponse } from "@services/mocks/auth"
+import Dropdown1 from "@components/common/dropdowns/Dropdown1"
 import { GENDER_OPTIONS } from "./SignUpForm.utils"
 
 function SignInForm() {

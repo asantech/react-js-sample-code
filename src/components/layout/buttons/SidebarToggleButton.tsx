@@ -1,10 +1,12 @@
-import CustomButton from "../../common/buttons/CustomButton"
+import CustomButton from "@components/common/buttons/CustomButton"
 
 type SidebarToggleButtonProps = {
   toggleExpandState: () => void
 }
 
-function SidebarToggleButton({ toggleExpandState }: SidebarToggleButtonProps) {
+function SidebarToggleButton({
+  toggleExpandState,
+}: Readonly<SidebarToggleButtonProps>) {
   return (
     <CustomButton variant="primary" onClick={() => toggleExpandState()}>
       Toggle

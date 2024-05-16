@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 
-import CustomButton from "../../components/common/buttons/CustomButton"
-import useAuth from "../../hooks/mocks/useAuth"
+import CustomButton from "@components/common/buttons/CustomButton"
+import useAuth from "@hooks/mocks/useAuth"
 
 function Header({ children }: Readonly<PropsWithChildren>) {
   const { signOutMock } = useAuth()

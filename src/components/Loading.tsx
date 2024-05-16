@@ -1,4 +1,4 @@
-import CustomSpinner from "./common/spinners/CustomSpinner"
+import CustomSpinner from "@components/common/spinners/CustomSpinner"
 
 function Loading() {
   return (

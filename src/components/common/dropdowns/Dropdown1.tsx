@@ -76,44 +76,40 @@ const Dropdown1 = ({
             {selectedOption.label ? selectedOption.label : placeholder}
           </span>
           <img
-            className={clsx("w-5 h-5", menuDisplayed && "rotate-180")}
-            src="/public/svgs/down-arrow.svg"
+            src="/svgs/down-arrow.svg"
             alt="Down Arrow Icon"
+            className={clsx("w-5 h-5", menuDisplayed && "rotate-180")}
           />
         </div>
       </button>
       {menuDisplayed && (
-        <>
-          {
-            <div
-              className={clsx(
-                "absolute bg-white border-solid border-gray-400 rounded border-2",
-                menuPosition === "top" ? "bottom-14" : "top-14"
-              )}
-            >
-              {!hasOptions && <div className="p-4 w-max">Has no options</div>}
-              {hasOptions &&
-                options.map((option: DropdownOption, index: number) => {
-                  const key = index
-                  return (
-                    <button
-                      key={key}
-                      type="button"
-                      className={clsx(
-                        "text-left w-full hover:bg-gray-200 py-3 px-4",
-                        selectedOption === option && "bg-gray-100"
-                      )}
-                      onClick={() => {
-                        selectOption(option)
-                      }}
-                    >
-                      {option.label}
-                    </button>
-                  )
-                })}
-            </div>
-          }
-        </>
+        <div
+          className={clsx(
+            "absolute bg-white border-solid border-gray-400 rounded border-2",
+            menuPosition === "top" ? "bottom-14" : "top-14"
+          )}
+        >
+          {!hasOptions && <div className="p-4 w-max">Has no options</div>}
+          {hasOptions &&
+            options.map((option: DropdownOption, index: number) => {
+              const key = index
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  className={clsx(
+                    "text-left w-full hover:bg-gray-200 py-3 px-4",
+                    selectedOption === option && "bg-gray-100"
+                  )}
+                  onClick={() => {
+                    selectOption(option)
+                  }}
+                >
+                  {option.label}
+                </button>
+              )
+            })}
+        </div>
       )}
       {errorMessage && <p className="text-red-600">{errorMessage}</p>}
     </div>

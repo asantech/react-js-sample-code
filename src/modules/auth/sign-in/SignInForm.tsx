@@ -1,16 +1,14 @@
 import { useState } from "react"
 
-import CustomForm2, {
-  FormValues,
-} from "../../../components/common/forms/CustomForm2"
-import CustomInput from "../../../components/common/inputs/CustomInput"
-import CustomButton from "../../../components/common/buttons/CustomButton"
-import { signInMock } from "../../../services/mocks/auth"
-import { useAuthStore, type User } from "../../../store/auth"
+import CustomForm2, { FormValues } from "@components/common/forms/CustomForm2"
+import CustomInput from "@components/common/inputs/CustomInput"
+import CustomButton from "@components/common/buttons/CustomButton"
+import { signInMock } from "@services/mocks/auth"
+import { useAuthStore, type User } from "@store/auth"
 import { signInSchema } from "./SignInForm.schema"
-import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
+import { setLocalStorage, getLocalStorage } from "@utils/localStorage"
 import { hasAuthDataTokens } from "../auth.utils"
-import { type SignInMockResponse } from "../../../services/mocks/auth"
+import { type SignInMockResponse } from "@services/mocks/auth"
 
 function SignInForm() {
   const setUser = useAuthStore((state) => state.setUser)
