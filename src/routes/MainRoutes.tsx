@@ -2,20 +2,20 @@ import { useEffect, Suspense, lazy } from "react"
 import { Routes, Route } from "react-router-dom"
 
 import { routes } from "./routes"
-import { useAuthStore } from "../store/auth"
-import { getLocalStorage } from "../utils/localStorage"
+import { useAuthStore } from "@store/auth"
+import { getLocalStorage } from "@utils/localStorage"
 import {
   hasAuthDataTokens,
   isUserDataValid,
   isTokenExpired,
-} from "../modules/auth/auth.utils"
-import useAuth from "../hooks/mocks/useAuth"
-import Layout from "../layout/Layout"
+} from "@modules/auth/auth.utils"
+import useAuth from "@hooks/mocks/useAuth"
+import Layout from "@layout/Layout"
 import ProtectedRoute from "./ProtectedRoute"
-import Loading from "../components/Loading"
+import Loading from "@components/Loading"
 
-const SignUp = lazy(() => import("../pages/auth/sign-up/SignUp"))
-const SignIn = lazy(() => import("../pages/auth/sign-in/SignIn"))
+const SignUp = lazy(() => import("@pages/auth/sign-up/SignUp"))
+const SignIn = lazy(() => import("@pages/auth/sign-in/SignIn"))
 
 function MainRoutes() {
   const setUser = useAuthStore((state) => state.setUser)

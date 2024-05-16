@@ -1,13 +1,12 @@
 import isEmpty from "lodash/isEmpty"
 
-import { type FormValues } from "../../components/common/forms/CustomForm1"
+import { type FormValues } from "@components/common/forms/CustomForm1"
 import users from '../../mock/db/users.json'
-import { getValueAfterDelay, hashString, encryptTextWithSecretKey, SECRET_KEY_MOCK, MOCK_RESPONSE_DELAY } from "../../utils/mock/service"
-import { AuthData } from "../../modules/auth/auth.types"
-import { isUserDataValid } from "../../modules/auth/auth.utils"
-import { User } from "../../store/auth"
-import { getLocalStorage, setLocalStorage, removeFromLocalStorage } from "../../utils/localStorage"
-import { hasAuthDataTokens, isTokenExpired } from './../../modules/auth/auth.utils';
+import { getValueAfterDelay, hashString, encryptTextWithSecretKey, SECRET_KEY_MOCK, MOCK_RESPONSE_DELAY } from "@utils/mock/service"
+import { AuthData } from "@modules/auth/auth.types"
+import { User } from "@store/auth"
+import { getLocalStorage, setLocalStorage, removeFromLocalStorage } from "@utils/localStorage"
+import { hasAuthDataTokens, isTokenExpired, isUserDataValid } from '@modules/auth/auth.utils';
 import { reqStructure } from "./base"
 
 const ACCESS_TOKEN_EXPIRE_DURATION = 3600

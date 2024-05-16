@@ -1,8 +1,8 @@
 import has from "lodash/has"
 
 import { AuthData } from "./auth.types"
-import { User } from "../../store/auth"
-import { decryptTextWithSecretKey, SECRET_KEY_MOCK } from "../../utils/mock/service"
+import { User } from "@store/auth"
+import { decryptTextWithSecretKey, SECRET_KEY_MOCK } from "@utils/mock/service"
 
 export const hasAuthDataTokens = (
   authData: AuthData

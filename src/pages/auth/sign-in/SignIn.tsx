@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 
-import SignInForm from "../../../modules/auth/sign-in/SignInForm"
-import { routes } from "../../../routes/routes"
+import SignInForm from "@modules/auth/sign-in/SignInForm"
+import { routes } from "@routes/routes"
 import AuthPageWrapper from "../AuthPageWrapper"
-import Dropdown1 from "../../../components/common/dropdowns/Dropdown1"
+import Dropdown1 from "@components/common/dropdowns/Dropdown1"
 
 const authFlowOptions = [
   {

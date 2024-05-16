@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 
-import OAuth from "../pages/auth/oauth/OAuth"
+import OAuth from "@pages/auth/oauth/OAuth"
 
 function DashboardRoutes() {
   return (

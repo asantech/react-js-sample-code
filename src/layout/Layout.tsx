@@ -1,12 +1,12 @@
 import { useState } from "react"
 import clsx from "clsx"
 
-import Header from "./header/Header"
-import Navbar from "./navbar/Navbar"
-import Sidebar from "./sidebar/Sidebar"
-import Main from "./main/Main"
-import Footer from "./footer/Footer"
-import SidebarToggleButton from "../components/layout/buttons/SidebarToggleButton"
+import Header from "@layout/header/Header"
+import Navbar from "@layout/navbar/Navbar"
+import Sidebar from "@layout/sidebar/Sidebar"
+import Main from "@layout/main/Main"
+import Footer from "@layout/footer/Footer"
+import SidebarToggleButton from "@components/layout/buttons/SidebarToggleButton"
 
 function Layout() {
   const [sidebarExpanded, setSidebarExpanded] = useState(true)
