@@ -36,7 +36,7 @@ const CustomForm2 = ({
       return child
     }
     const errorMessage = errors?.[name]?.message
-    const error = errorMessage ? { error: errorMessage } : {}
+    const error = errorMessage ? { errorMessage } : {}
     return cloneElement(child, {
       ...register(name),
       ...error,

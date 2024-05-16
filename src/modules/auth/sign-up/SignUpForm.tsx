@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { UseFormRegister, FieldErrors } from "react-hook-form"
+import { UseFormRegister, FieldErrors, Controller } from "react-hook-form"
 
 import CustomForm1, {
   FormValues,
@@ -12,7 +12,7 @@ import { signUpSchema } from "./SignUpForm.schema"
 import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
 import { hasAuthDataTokens } from "../../../modules/auth/auth.utils"
 import { type SignInMockResponse } from "../../../services/mocks/auth"
-import Dropdown2 from "../../../components/common/dropdowns/Dropdown2"
+import Dropdown1 from "../../../components/common/dropdowns/Dropdown1"
 
 const GENDER_OPTIONS = [
   { value: 0, label: "Female" },
@@ -66,59 +66,64 @@ function SignInForm() {
       {({
         register,
         errors,
+        control,
       }: {
         register: UseFormRegister<FormValues>
         errors: FieldErrors
         control: any
-      }) => {
-        console.log("errors", errors)
-        return (
-          <>
-            <CustomInput
-              placeholder="Email"
-              {...register("email")}
-              error={errors.email?.message as string}
-            />
-            <CustomInput
-              placeholder="First Name"
-              {...register("firstName")}
-              error={errors.firstName?.message as string}
-            />
-            <CustomInput
-              placeholder="Last Name"
-              {...register("lastName")}
-              error={errors.lastName?.message as string}
-            />
-            <Dropdown2
-              className="mb-5"
-              placeholder="Gender"
-              {...register("gender")}
-              options={GENDER_OPTIONS}
-            />
-            <CustomInput
-              placeholder="Password"
-              {...register("password")}
-              error={errors.password?.message as string}
-            />
-            <CustomInput
-              placeholder="Password Repeat"
-              {...register("passwordRepeat")}
-              error={errors.passwordRepeat?.message as string}
-            />
-            <div className="text-center">
-              <CustomButton
-                type="submit"
-                variant="primary"
-                className="mx-auto"
-                isLoading={isSigningUp}
-                isDisabled={isSigningUp}
-              >
-                Submit
-              </CustomButton>
-            </div>
-          </>
-        )
-      }}
+      }) => (
+        <>
+          <CustomInput
+            placeholder="Email"
+            {...register("email")}
+            errorMessage={errors.email?.message as string}
+          />
+          <CustomInput
+            placeholder="First Name"
+            {...register("firstName")}
+            errorMessage={errors.firstName?.message as string}
+          />
+          <CustomInput
+            placeholder="Last Name"
+            {...register("lastName")}
+            errorMessage={errors.lastName?.message as string}
+          />
+          <Controller
+            name="gender"
+            control={control}
+            render={({ field }) => (
+              <Dropdown1
+                className="mb-5"
+                placeholder="Gender"
+                options={GENDER_OPTIONS}
+                errorMessage={errors.gender?.message as string}
+                {...field}
+              />
+            )}
+          />
+          <CustomInput
+            placeholder="Password"
+            {...register("password")}
+            errorMessage={errors.password?.message as string}
+          />
+          <CustomInput
+            placeholder="Password Repeat"
+            {...register("passwordRepeat")}
+            errorMessage={errors.passwordRepeat?.message as string}
+          />
+          <div className="text-center">
+            <CustomButton
+              type="submit"
+              variant="primary"
+              className="mx-auto"
+              isLoading={isSigningUp}
+              isDisabled={isSigningUp}
+            >
+              Submit
+            </CustomButton>
+          </div>
+        </>
+      )}
     </CustomForm1>
   )
 }

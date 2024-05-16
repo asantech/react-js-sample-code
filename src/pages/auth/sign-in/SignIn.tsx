@@ -16,11 +16,6 @@ const authFlowOptions = [
     label: "OAuth flow #2",
     data: { description: "mock - cookie - refresh token not renewed" },
   },
-  {
-    value: "2",
-    label: "OAuth flow #3",
-    data: { description: "mock - localStorage - refresh token renewed" },
-  },
 ]
 
 function SignIn() {
