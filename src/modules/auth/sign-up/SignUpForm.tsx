@@ -13,11 +13,7 @@ import { setLocalStorage, getLocalStorage } from "../../../utils/localStorage"
 import { hasAuthDataTokens } from "../../../modules/auth/auth.utils"
 import { type SignInMockResponse } from "../../../services/mocks/auth"
 import Dropdown1 from "../../../components/common/dropdowns/Dropdown1"
-
-const GENDER_OPTIONS = [
-  { value: 0, label: "Female" },
-  { value: 1, label: "Male" },
-]
+import { GENDER_OPTIONS } from "./SignUpForm.utils"
 
 function SignInForm() {
   const setUser = useAuthStore((state) => state.setUser)
