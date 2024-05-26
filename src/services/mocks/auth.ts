@@ -68,7 +68,7 @@ export const makeAuthenticatedReq = async ({requestBody, requestLogic}: any) => 
             makeAuthenticatedReq({requestBody, requestLogic})
             return Promise.reject(new Error('Access token is expired'));
         }
-        return  Promise.resolve(requestBody)
+        return Promise.resolve(requestBody)
     }
 
     const response = await reqStructure({

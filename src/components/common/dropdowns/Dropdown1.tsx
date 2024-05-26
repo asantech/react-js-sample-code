@@ -17,7 +17,7 @@ type Dropdown1Props = {
   disabled?: boolean
   label?: string
   errorMessage?: string
-  [key: string]: any
+  onChange?: (selectedOption: string | number) => void
 }
 
 const DEFAULT_OPTION = Object.freeze({ value: "", label: "" })
@@ -31,7 +31,7 @@ const Dropdown1 = ({
   disabled = false,
   label,
   errorMessage,
-  ...otherProps
+  onChange,
 }: Readonly<Dropdown1Props>) => {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const [selectedOption, setSelectedOption] = useState<DropdownOption>(option)
@@ -42,10 +42,11 @@ const Dropdown1 = ({
   }
 
   const selectOption = (option: DropdownOption) => {
-    if (disabled) return
+    const isClickedOptionSelectedOption = selectedOption === option
+    if (disabled || isClickedOptionSelectedOption) return
     setSelectedOption(option)
     setMenuDisplayed(false)
-    otherProps.onChange(option.value)
+    onChange?.(option.value)
   }
 
   useEffect(() => {
@@ -98,7 +99,7 @@ const Dropdown1 = ({
                   key={key}
                   type="button"
                   className={clsx(
-                    "text-left w-full hover:bg-gray-200 py-3 px-4",
+                    "text-left w-full hover:bg-gray-200 py-3 px-4 max-w-xs truncate",
                     selectedOption === option && "bg-gray-100"
                   )}
                   onClick={() => {

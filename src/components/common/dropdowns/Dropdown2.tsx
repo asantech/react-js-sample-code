@@ -17,16 +17,11 @@ type Dropdown1Props = {
   disabled?: boolean
 }
 
-// const DEFAULT_OPTION = { value: "", label: "" }
-
 const Dropdown2 = forwardRef(
   (
     {
       className = "",
-      // placeholder = "",
-      // option = DEFAULT_OPTION,
       options = [],
-      // menuPosition = "top",
       disabled,
       ...otherProps
     }: Readonly<Dropdown1Props>,
