@@ -1,0 +1,115 @@
+import { useState, PropsWithChildren } from "react"
+import has from "lodash/has"
+import clsx from "clsx"
+
+import MenuItem1 from "./MenuItem1"
+import { SidebarMenuGroupType, SidebarMenuItemType } from "../Sidebar1.config"
+import ArrowButton1 from "@components/buttons/ArrowButton1"
+
+type MenuGroup1Props = {
+  className?: string
+  nestedLevel?: number
+  config: SidebarMenuItemType | SidebarMenuGroupType
+  accumulatedLinkPath: string
+  minified: boolean
+}
+
+const HIGHEST_BG_COLOR_LEVEL = 7
+
+const THEME_COLORS: Record<number, string> = Object.freeze({
+  1: "bg-sky-100",
+  2: "bg-sky-200",
+  3: "bg-sky-300",
+  4: "bg-sky-400",
+  5: "bg-sky-500",
+  6: "bg-sky-600",
+  7: "bg-sky-700",
+  8: "bg-sky-800",
+  9: "bg-sky-900",
+})
+
+function MenuGroup1({
+  config,
+  nestedLevel = 1,
+  className,
+  accumulatedLinkPath,
+  minified,
+}: Readonly<PropsWithChildren<MenuGroup1Props>>) {
+  const [collapsed, setCollapsed] = useState(true)
+
+  const hasMenu = has(config, "menu")
+  const label = config.label
+  const colorLevel = HIGHEST_BG_COLOR_LEVEL - nestedLevel
+  const labelIndentation = minified ? 6 : 16
+
+  const toggleCollapse = () => {
+    setCollapsed((collapsedState) => !collapsedState)
+  }
+
+  if (!hasMenu)
+    return (
+      <MenuItem1
+        className={clsx(
+          "py-2 text-white mb-1 rounded-lg",
+          THEME_COLORS[colorLevel],
+          nestedLevel === 1 && "mb-1 font-medium"
+        )}
+        label={label}
+        linkPath={accumulatedLinkPath}
+        labelIndentation={labelIndentation}
+        nestedLevel={nestedLevel}
+      />
+    )
+  return (
+    <div
+      className={clsx(nestedLevel === 1 && "mb-1")}
+      style={{ direction: "ltr" }}
+    >
+      <button
+        className={clsx(
+          `flex justify-between items-center w-full py-2 rounded-lg mb-1`,
+          THEME_COLORS[colorLevel],
+          nestedLevel === 1 && "font-medium",
+          className
+        )}
+        style={{
+          paddingRight: labelIndentation,
+        }}
+        onClick={toggleCollapse}
+      >
+        <span
+          className={"text-white one-line-ellipsis"}
+          style={{
+            paddingLeft: `${nestedLevel * labelIndentation}px`,
+            paddingRight: `${nestedLevel * labelIndentation}px`,
+          }}
+        >
+          {label}
+        </span>
+        <ArrowButton1
+          className={clsx("w-3 h3", !collapsed && "rotate-180")}
+          color="white"
+          style={{ fill: "white" }}
+        />
+      </button>
+      {!collapsed && (
+        <div className="">
+          {config.menu.map((conf: MenuGroup1Props["config"], index: number) => {
+            const key = index
+            return (
+              <MenuGroup1
+                key={key}
+                config={conf}
+                nestedLevel={nestedLevel + 1}
+                accumulatedLinkPath={accumulatedLinkPath + conf.linkPath}
+                minified={minified}
+              />
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default MenuGroup1
