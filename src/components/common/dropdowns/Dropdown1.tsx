@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import clsx from "clsx"
 
+import ArrowButton1 from "@components/buttons/ArrowButton1"
+
 type DropdownOption = {
   value: string | number
   label: string
@@ -75,9 +77,7 @@ const Dropdown1 = ({
           <span className={clsx(!selectedOption.label && "text-zinc-400")}>
             {selectedOption.label ? selectedOption.label : placeholder}
           </span>
-          <img
-            src="/svgs/down-arrow.svg"
-            alt="Down Arrow Icon"
+          <ArrowButton1
             className={clsx("w-5 h-5", menuDisplayed && "rotate-180")}
           />
         </div>
