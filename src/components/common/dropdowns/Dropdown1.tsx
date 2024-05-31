@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
 import clsx from "clsx"
 import isArray from "lodash/isArray"
 import debounce from "lodash/debounce"
@@ -14,7 +14,9 @@ enum DropdownMenuPosition {
 
 enum SearchType {
   INCLUDES = "includes",
+  INCLUDES_STRICT = "includes-strict",
   EXACT = "exact",
+  EXACT_STRICT = "exact-strict",
 }
 
 type Dropdown1Props = {
@@ -43,6 +45,17 @@ const debouncedOnChange = debounce((func) => {
   func()
 }, 700)
 
+const getSearchTypePredicate = (searchedText: string) => ({
+  [SearchType.INCLUDES]: (item: DropdownOption) =>
+    item.label.toLowerCase().includes(searchedText.toLowerCase()),
+  [SearchType.INCLUDES_STRICT]: (item: DropdownOption) =>
+    item.label.includes(searchedText),
+  [SearchType.EXACT]: (item: DropdownOption) =>
+    item.label.toLowerCase() === searchedText.toLowerCase(),
+  [SearchType.EXACT_STRICT]: (item: DropdownOption) =>
+    item.label === searchedText,
+})
+
 const Dropdown1 = ({
   className = "",
   placeholder = "",
@@ -57,6 +70,7 @@ const Dropdown1 = ({
   isLoading = false,
   menuWidth = "100%",
   isOnline,
+  searchType = SearchType.EXACT_STRICT,
   onSelectOption,
   onChangeCallback,
 }: Readonly<Dropdown1Props>) => {
@@ -65,6 +79,11 @@ const Dropdown1 = ({
   const [selectedOption, setSelectedOption] = useState<DropdownOption>(option)
   const [menuOpened, setMenuOpened] = useState(false)
   const [searchedText, setSearchedText] = useState("")
+
+  const searchPredicate = useMemo(
+    () => getSearchTypePredicate(searchedText)[searchType],
+    [searchedText, searchType]
+  )
 
   const toggleMenuDisplay = () => {
     setMenuOpened((menuOpenState) => !menuOpenState)
@@ -79,7 +98,7 @@ const Dropdown1 = ({
 
   const onSearchInputChange = (event: any) => {
     const searchInputValue = event.target.value
-    setSearchedText(searchInputValue.trim())
+    setSearchedText(searchInputValue)
     debouncedOnChange(() => {
       onChangeCallback?.(searchInputValue)
     })
@@ -100,17 +119,7 @@ const Dropdown1 = ({
     }
   }, [])
 
-  useEffect(() => {
-    function removePrevSearchedTextOnMenuOpen() {
-      if (menuOpened) return
-      setSearchedText("")
-    }
-    removePrevSearchedTextOnMenuOpen()
-  }, [menuOpened])
-
-  const offlineFilteredOptions = options?.filter((item) =>
-    item.label.toLowerCase().includes(searchedText.toLowerCase())
-  )
+  const offlineFilteredOptions = options?.filter(searchPredicate)
 
   const generatedOptions = isOnline ? options : offlineFilteredOptions
   const hasNoOptions =
@@ -118,7 +127,8 @@ const Dropdown1 = ({
     searchedText &&
     isArray(generatedOptions) &&
     !generatedOptions.length
-  const hasOptions = !isLoading && isArray(options) && Boolean(options.length)
+  const hasOptions =
+    !isLoading && isArray(generatedOptions) && Boolean(generatedOptions.length)
 
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>
@@ -157,6 +167,7 @@ const Dropdown1 = ({
                   isLoading ? "pl-3 pr-9" : "px-3"
                 )}
                 placeholder="Search..."
+                value={searchedText}
                 onChange={onSearchInputChange}
                 onKeyDown={() => {
                   debouncedOnChange.cancel()

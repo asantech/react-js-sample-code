@@ -11,6 +11,6 @@ export const getCountries = async (searchedText: string) => {
     const searchedCountries = searchData(countriesDB, (country: DropdownOption) => {
         return country.label.toLowerCase().includes(searchedText)
     })
-    throw Error()
+    // throw Error()
     return await getValueAfterDelay(searchedCountries, 1500) as any
 } 
