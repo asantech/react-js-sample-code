@@ -27,7 +27,7 @@ function MenuGroup1({
   const hasMenu = has(config, "menu")
   const label = config.label
   const colorLevel = HIGHEST_BG_COLOR_LEVEL - nestedLevel
-  const labelIndentation = minified ? 6 : 16
+  const labelIndentation = minified ? 8 : 16
 
   const toggleCollapse = () => {
     setCollapsed((collapsedState) => !collapsedState)

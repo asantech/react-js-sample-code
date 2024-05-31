@@ -1,14 +1,21 @@
 import { useState, useRef, useEffect } from "react"
 import clsx from "clsx"
+import isArray from "lodash/isArray"
+import debounce from "lodash/debounce"
 
+import { DropdownOption } from "@types/components"
 import ArrowButton1 from "@components/buttons/ArrowButton1"
+import CustomSpinner from "../spinners/CustomSpinner"
 
-type DropdownOption = {
-  value: string | number
-  label: string
-  data?: Record<string, string>
+enum DropdownMenuPosition {
+  TOP = "top",
+  BOTTOM = "bottom",
 }
-type DropdownMenuPosition = "top" | "bottom"
+
+enum SearchType {
+  INCLUDES = "includes",
+  EXACT = "exact",
+}
 
 type Dropdown1Props = {
   className?: string
@@ -19,42 +26,73 @@ type Dropdown1Props = {
   disabled?: boolean
   label?: string
   errorMessage?: string
-  [key: string]: any
+  hasSearch?: boolean
+  maxVisibleItemsCount?: number
+  menuWidth?: string | number
+  isLoading?: boolean
+  isOnline?: boolean
+  searchType?: SearchType
+  onSelectOption?: (option: DropdownOption) => void
+  onChangeCallback?: (inputValue: string) => void
 }
 
 const DEFAULT_OPTION = Object.freeze({ value: "", label: "" })
+const DEFAULT_MENU_ITEM_HEIGHT = 48
+
+const debouncedOnChange = debounce((func) => {
+  func()
+}, 700)
 
 const Dropdown1 = ({
   className = "",
   placeholder = "",
   option = DEFAULT_OPTION,
-  options = [],
-  menuPosition = "bottom",
+  options,
+  menuPosition = DropdownMenuPosition.BOTTOM,
   disabled = false,
   label,
   errorMessage,
-  ...otherProps
+  hasSearch = false,
+  maxVisibleItemsCount = 4,
+  isLoading = false,
+  menuWidth = "100%",
+  isOnline,
+  onSelectOption,
+  onChangeCallback,
 }: Readonly<Dropdown1Props>) => {
   const dropdownRef = useRef<HTMLDivElement>(null)
+
   const [selectedOption, setSelectedOption] = useState<DropdownOption>(option)
-  const [menuDisplayed, setMenuDisplayed] = useState(false)
+  const [menuOpened, setMenuOpened] = useState(false)
+  const [searchedText, setSearchedText] = useState("")
 
   const toggleMenuDisplay = () => {
-    setMenuDisplayed((menuDisplay) => !menuDisplay)
+    setMenuOpened((menuOpenState) => !menuOpenState)
   }
 
   const selectOption = (option: DropdownOption) => {
     if (disabled) return
     setSelectedOption(option)
-    setMenuDisplayed(false)
-    otherProps.onChange(option.value)
+    setMenuOpened(false)
+    onSelectOption?.(option)
+  }
+
+  const onSearchInputChange = (event: any) => {
+    const searchInputValue = event.target.value
+    setSearchedText(searchInputValue.trim())
+    debouncedOnChange(() => {
+      onChangeCallback?.(searchInputValue)
+    })
   }
 
   useEffect(() => {
-    const handleClickOutsideOfDropdown = (event: any) => {
-      if (!dropdownRef.current || dropdownRef.current.contains(event.target))
+    const handleClickOutsideOfDropdown = (event: MouseEvent) => {
+      if (
+        !dropdownRef.current ||
+        dropdownRef.current.contains(event.target as Node)
+      )
         return
-      setMenuDisplayed(false)
+      setMenuOpened(false)
     }
     document.addEventListener("mousedown", handleClickOutsideOfDropdown)
     return () => {
@@ -62,7 +100,25 @@ const Dropdown1 = ({
     }
   }, [])
 
-  const hasOptions = Boolean(options.length)
+  useEffect(() => {
+    function removePrevSearchedTextOnMenuOpen() {
+      if (menuOpened) return
+      setSearchedText("")
+    }
+    removePrevSearchedTextOnMenuOpen()
+  }, [menuOpened])
+
+  const offlineFilteredOptions = options?.filter((item) =>
+    item.label.toLowerCase().includes(searchedText.toLowerCase())
+  )
+
+  const generatedOptions = isOnline ? options : offlineFilteredOptions
+  const hasNoOptions =
+    !isLoading &&
+    searchedText &&
+    isArray(generatedOptions) &&
+    !generatedOptions.length
+  const hasOptions = !isLoading && isArray(options) && Boolean(options.length)
 
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>
@@ -78,37 +134,71 @@ const Dropdown1 = ({
             {selectedOption.label ? selectedOption.label : placeholder}
           </span>
           <ArrowButton1
-            className={clsx("w-5 h-5", menuDisplayed && "rotate-180")}
+            className={clsx("w-5 h-5", menuOpened && "rotate-180")}
           />
         </div>
       </button>
-      {menuDisplayed && (
+      {menuOpened && (
         <div
           className={clsx(
             "absolute bg-white border-solid border-gray-400 rounded border-2",
             menuPosition === "top" ? "bottom-14" : "top-14"
           )}
+          style={{
+            width: menuWidth,
+            zIndex: 1,
+          }}
         >
-          {!hasOptions && <div className="p-4 w-max">Has no options</div>}
-          {hasOptions &&
-            options.map((option: DropdownOption, index: number) => {
-              const key = index
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  className={clsx(
-                    "text-left w-full hover:bg-gray-200 py-3 px-4",
-                    selectedOption === option && "bg-gray-100"
-                  )}
-                  onClick={() => {
-                    selectOption(option)
-                  }}
-                >
-                  {option.label}
-                </button>
-              )
-            })}
+          {hasSearch && (
+            <div className="py-3 px-4 relative flex items-center">
+              <input
+                className={clsx(
+                  "w-full py-2 outline-none bg-slate-200 rounded-md",
+                  isLoading ? "pl-3 pr-9" : "px-3"
+                )}
+                placeholder="Search..."
+                onChange={onSearchInputChange}
+                onKeyDown={() => {
+                  debouncedOnChange.cancel()
+                }}
+              ></input>
+              {isLoading && (
+                <div className="w-5 h-5 absolute right-6">
+                  <CustomSpinner />
+                </div>
+              )}
+            </div>
+          )}
+          {hasNoOptions && <div className="p-4 w-max">Has no options</div>}
+          {hasOptions && (
+            <div
+              className="overflow-x-hidden overflow-y-scroll"
+              style={{
+                maxHeight: maxVisibleItemsCount * DEFAULT_MENU_ITEM_HEIGHT,
+              }}
+            >
+              {generatedOptions?.map(
+                (option: DropdownOption, index: number) => {
+                  const key = index
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      className={clsx(
+                        "text-left w-full hover:bg-gray-200 py-3 px-4 one-line-ellipsis h-12",
+                        selectedOption === option && "bg-gray-100"
+                      )}
+                      onClick={() => {
+                        selectOption(option)
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  )
+                }
+              )}
+            </div>
+          )}
         </div>
       )}
       {errorMessage && <p className="text-red-600">{errorMessage}</p>}
