@@ -1,11 +1,9 @@
-import { useState, useRef, useEffect, useMemo } from "react"
+import { useState, useRef, useEffect, PropsWithChildren } from "react"
 import clsx from "clsx"
 import isArray from "lodash/isArray"
-import debounce from "lodash/debounce"
 
 import { DropdownOption } from "@types/components"
-import ArrowButton1 from "@components/buttons/ArrowButton1"
-import CustomSpinner from "../spinners/CustomSpinner"
+import ArrowIcon1 from "../icons/ArrowIcon1"
 
 enum DropdownMenuPosition {
   TOP = "top",
@@ -28,33 +26,15 @@ type Dropdown1Props = {
   disabled?: boolean
   label?: string
   errorMessage?: string
-  hasSearch?: boolean
   maxVisibleItemsCount?: number
   menuWidth?: string | number
-  isLoading?: boolean
-  isOnline?: boolean
-  searchType?: SearchType
   onSelectOption?: (option: DropdownOption) => void
-  onChangeCallback?: (inputValue: string) => void
+  hasOptionsCondition?: boolean
+  hasNoOptionsCondition?: boolean
 }
 
 const DEFAULT_OPTION = Object.freeze({ value: "", label: "" })
 const DEFAULT_MENU_ITEM_HEIGHT = 48
-
-const debouncedOnChange = debounce((func) => {
-  func()
-}, 700)
-
-const getSearchTypePredicate = (searchedText: string) => ({
-  [SearchType.INCLUDES]: (item: DropdownOption) =>
-    item.label.toLowerCase().includes(searchedText.toLowerCase()),
-  [SearchType.INCLUDES_STRICT]: (item: DropdownOption) =>
-    item.label.includes(searchedText),
-  [SearchType.EXACT]: (item: DropdownOption) =>
-    item.label.toLowerCase() === searchedText.toLowerCase(),
-  [SearchType.EXACT_STRICT]: (item: DropdownOption) =>
-    item.label === searchedText,
-})
 
 const Dropdown1 = ({
   className = "",
@@ -65,25 +45,17 @@ const Dropdown1 = ({
   disabled = false,
   label,
   errorMessage,
-  hasSearch = false,
   maxVisibleItemsCount = 4,
-  isLoading = false,
   menuWidth = "100%",
-  isOnline,
-  searchType,
   onSelectOption,
-  onChangeCallback,
-}: Readonly<Dropdown1Props>) => {
+  children,
+  hasOptionsCondition = true,
+  hasNoOptionsCondition = true,
+}: PropsWithChildren<Readonly<Dropdown1Props>>) => {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const [selectedOption, setSelectedOption] = useState<DropdownOption>(option)
   const [menuOpened, setMenuOpened] = useState(false)
-  const [searchedText, setSearchedText] = useState("")
-
-  const searchPredicate = useMemo(
-    () => getSearchTypePredicate(searchedText)[searchType as SearchType],
-    [searchedText, searchType]
-  )
 
   const toggleMenuDisplay = () => {
     setMenuOpened((menuOpenState) => !menuOpenState)
@@ -94,14 +66,6 @@ const Dropdown1 = ({
     setSelectedOption(option)
     setMenuOpened(false)
     onSelectOption?.(option)
-  }
-
-  const onSearchInputChange = (event: any) => {
-    const searchInputValue = event.target.value
-    setSearchedText(searchInputValue)
-    debouncedOnChange(() => {
-      onChangeCallback?.(searchInputValue)
-    })
   }
 
   useEffect(() => {
@@ -119,18 +83,10 @@ const Dropdown1 = ({
     }
   }, [])
 
-  const offlineFilteredOptions = searchType
-    ? options?.filter(searchPredicate)
-    : options
-
-  const generatedOptions = isOnline ? options : offlineFilteredOptions
   const hasNoOptions =
-    !isLoading &&
-    searchedText &&
-    isArray(generatedOptions) &&
-    !generatedOptions.length
+    isArray(options) && !options.length && hasNoOptionsCondition
   const hasOptions =
-    !isLoading && isArray(generatedOptions) && Boolean(generatedOptions.length)
+    isArray(options) && Boolean(options.length) && hasOptionsCondition
 
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>
@@ -145,9 +101,7 @@ const Dropdown1 = ({
           <span className={clsx(!selectedOption.label && "text-zinc-400")}>
             {selectedOption.label ? selectedOption.label : placeholder}
           </span>
-          <ArrowButton1
-            className={clsx("w-5 h-5", menuOpened && "rotate-180")}
-          />
+          <ArrowIcon1 className={clsx("w-5 h-5", menuOpened && "rotate-180")} />
         </div>
       </button>
       {menuOpened && (
@@ -161,27 +115,7 @@ const Dropdown1 = ({
             zIndex: 1,
           }}
         >
-          {hasSearch && (
-            <div className="py-3 px-4 relative flex items-center">
-              <input
-                className={clsx(
-                  "w-full py-2 outline-none bg-slate-200 rounded-md",
-                  isLoading ? "pl-3 pr-9" : "px-3"
-                )}
-                placeholder="Search..."
-                value={searchedText}
-                onChange={onSearchInputChange}
-                onKeyDown={() => {
-                  debouncedOnChange.cancel()
-                }}
-              ></input>
-              {isLoading && (
-                <div className="w-5 h-5 absolute right-6">
-                  <CustomSpinner />
-                </div>
-              )}
-            </div>
-          )}
+          {children}
           {hasNoOptions && <div className="p-4 w-max">Has no options</div>}
           {hasOptions && (
             <div
@@ -190,26 +124,24 @@ const Dropdown1 = ({
                 maxHeight: maxVisibleItemsCount * DEFAULT_MENU_ITEM_HEIGHT,
               }}
             >
-              {generatedOptions?.map(
-                (option: DropdownOption, index: number) => {
-                  const key = index
-                  return (
-                    <button
-                      key={key}
-                      type="button"
-                      className={clsx(
-                        "text-left w-full hover:bg-gray-200 py-3 px-4 one-line-ellipsis h-12",
-                        selectedOption === option && "bg-gray-100"
-                      )}
-                      onClick={() => {
-                        selectOption(option)
-                      }}
-                    >
-                      {option.label}
-                    </button>
-                  )
-                }
-              )}
+              {options?.map((option: DropdownOption, index: number) => {
+                const key = index
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    className={clsx(
+                      "text-left w-full hover:bg-gray-200 py-3 px-4 one-line-ellipsis h-12",
+                      selectedOption === option && "bg-gray-100"
+                    )}
+                    onClick={() => {
+                      selectOption(option)
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                )
+              })}
             </div>
           )}
         </div>

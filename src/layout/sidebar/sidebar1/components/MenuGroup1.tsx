@@ -4,8 +4,8 @@ import clsx from "clsx"
 
 import MenuItem1 from "./MenuItem1"
 import { SidebarMenuGroupType, SidebarMenuItemType } from "../Sidebar1.config"
-import ArrowButton1 from "@components/buttons/ArrowButton1"
 import { HIGHEST_BG_COLOR_LEVEL, THEME_COLORS } from "./MenuGroup1.utils"
+import ArrowIcon1 from "@components/common/icons/ArrowIcon1"
 
 type MenuGroup1Props = {
   className?: string
@@ -73,7 +73,7 @@ function MenuGroup1({
         >
           {label}
         </span>
-        <ArrowButton1
+        <ArrowIcon1
           className={clsx("w-3 h3", !collapsed && "rotate-180")}
           color="white"
           style={{ fill: "white" }}
