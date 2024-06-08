@@ -1,4 +1,4 @@
-import Dropdown1 from "@components/common/dropdowns/Dropdown1"
+import Dropdown1, { SearchType } from "@components/common/dropdowns/Dropdown1"
 import COUNTRY_NAMES from "../../mock/db/countries.json"
 
 function DropdownSegment1() {
@@ -12,6 +12,7 @@ function DropdownSegment1() {
           options={COUNTRY_NAMES}
           menuWidth={270}
           hasSearch
+          searchType={SearchType.INCLUDES}
         />
       </div>
     </>

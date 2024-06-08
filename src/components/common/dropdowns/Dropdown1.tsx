@@ -12,7 +12,7 @@ enum DropdownMenuPosition {
   BOTTOM = "bottom",
 }
 
-enum SearchType {
+export enum SearchType {
   INCLUDES = "includes",
   INCLUDES_STRICT = "includes-strict",
   EXACT = "exact",
@@ -70,7 +70,7 @@ const Dropdown1 = ({
   isLoading = false,
   menuWidth = "100%",
   isOnline,
-  searchType = SearchType.EXACT_STRICT,
+  searchType,
   onSelectOption,
   onChangeCallback,
 }: Readonly<Dropdown1Props>) => {
@@ -81,7 +81,7 @@ const Dropdown1 = ({
   const [searchedText, setSearchedText] = useState("")
 
   const searchPredicate = useMemo(
-    () => getSearchTypePredicate(searchedText)[searchType],
+    () => getSearchTypePredicate(searchedText)[searchType as SearchType],
     [searchedText, searchType]
   )
 
@@ -119,7 +119,9 @@ const Dropdown1 = ({
     }
   }, [])
 
-  const offlineFilteredOptions = options?.filter(searchPredicate)
+  const offlineFilteredOptions = searchType
+    ? options?.filter(searchPredicate)
+    : options
 
   const generatedOptions = isOnline ? options : offlineFilteredOptions
   const hasNoOptions =
@@ -183,7 +185,7 @@ const Dropdown1 = ({
           {hasNoOptions && <div className="p-4 w-max">Has no options</div>}
           {hasOptions && (
             <div
-              className="overflow-x-hidden overflow-y-scroll"
+              className="overflow-x-hidden overflow-y-auto"
               style={{
                 maxHeight: maxVisibleItemsCount * DEFAULT_MENU_ITEM_HEIGHT,
               }}
