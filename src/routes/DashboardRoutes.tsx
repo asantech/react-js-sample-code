@@ -1,12 +1,12 @@
-import { Routes, Route } from "react-router-dom"
-
-import OAuth from "@pages/auth/oauth/OAuth"
+import AuthRoutes from "./AuthRoutes"
+import ComponentRoutes from "./ComponentRoutes"
 
 function DashboardRoutes() {
   return (
-    <Routes>
-      <Route path="tokens" element={<OAuth />} />
-    </Routes>
+    <>
+      <AuthRoutes />
+      <ComponentRoutes />
+    </>
   )
 }
 

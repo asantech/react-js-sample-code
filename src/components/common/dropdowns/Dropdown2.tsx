@@ -6,14 +6,10 @@ type DropdownOption = {
   label: string
   data?: Record<string, string>
 }
-type DropdownMenuPosition = "top" | "bottom"
 
 type Dropdown1Props = {
   className?: string
-  placeholder?: string
-  option?: DropdownOption
   options?: DropdownOption[]
-  menuPosition?: DropdownMenuPosition
   disabled?: boolean
 }
 

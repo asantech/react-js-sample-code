@@ -3,7 +3,7 @@ import clsx from "clsx"
 
 import Header from "@layout/header/Header"
 import Navbar from "@layout/navbar/Navbar"
-import Sidebar from "@layout/sidebar/Sidebar"
+import Sidebar1 from "@layout/sidebar/sidebar1/Sidebar1"
 import Main from "@layout/main/Main"
 import Footer from "@layout/footer/Footer"
 import SidebarToggleButton from "@components/layout/buttons/SidebarToggleButton"
@@ -18,7 +18,7 @@ function Layout() {
   return (
     <div className="flex">
       <div className={clsx(sidebarExpanded ? "w-1/5" : "w-1/12")}>
-        <Sidebar expanded={sidebarExpanded} />
+        <Sidebar1 expanded={sidebarExpanded} />
       </div>
       <div
         className={clsx(sidebarExpanded ? "w-4/5" : "w-11/12", "flex flex-col")}

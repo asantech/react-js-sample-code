@@ -89,7 +89,9 @@ function SignInForm() {
                 placeholder="Gender"
                 options={GENDER_OPTIONS}
                 errorMessage={errors.gender?.message as string}
-                onChange={field.onChange}
+                onSelectOption={(option) => {
+                  field.onChange(option.value)
+                }}
               />
             )}
           />
