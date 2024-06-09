@@ -3,35 +3,40 @@
 height: 8px; /* Height of the horizontal scrollbar */
 }
 
-::-webkit-scrollbar-track {
+.__app__layout__sidebar::-webkit-scrollbar-track {
 background: rgb(56 189 248); /* Color of the scrollbar track */
 }
 
-::-webkit-scrollbar-thumb {
+.__app__layout__sidebar::-webkit-scrollbar-thumb {
 background: rgb(14 165 233); /* Color of the scrollbar thumb */
 border-radius: 4px; /* Rounded corners for the thumb */
 }
 
-::-webkit-scrollbar-thumb:hover {
+.__app__layout__sidebar::-webkit-scrollbar-thumb:hover {
 background: rgb(14 165 233); /* Color of the scrollbar thumb on hover */
 }
 
 /* For Firefox */
 * {
 scrollbar-width: thin; /* "auto" or "thin" */
-scrollbar-color: rgb(14 165 233) rgb(56 189 248); /* Thumb and track color */
 }
 
 /* For Internet Explorer and Edge */
 * {
 -ms-overflow-style: -ms-autohiding-scrollbar; /* Auto-hiding scrollbar */
 }
+
+.__app__layout__sidebar {
+    scrollbar-color: rgb(14 165 233) rgb(56 189 248); /* Thumb and track color */
+}
  
 .one-line-ellipsis{
     display: -webkit-box;
+    display: block;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
+    white-space: nowrap;
 }

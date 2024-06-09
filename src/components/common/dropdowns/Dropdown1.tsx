@@ -1,14 +1,20 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, PropsWithChildren } from "react"
 import clsx from "clsx"
 
-import ArrowButton1 from "@components/buttons/ArrowButton1"
+import { DropdownOption } from "@types/components"
+import ArrowIcon1 from "../icons/ArrowIcon1"
 
-type DropdownOption = {
-  value: string | number
-  label: string
-  data?: Record<string, string>
+enum DropdownMenuPosition {
+  TOP = "top",
+  BOTTOM = "bottom",
 }
-type DropdownMenuPosition = "top" | "bottom"
+
+export enum SearchType {
+  INCLUDES = "includes",
+  INCLUDES_STRICT = "includes-strict",
+  EXACT = "exact",
+  EXACT_STRICT = "exact-strict",
+}
 
 type Dropdown1Props = {
   className?: string
@@ -19,42 +25,56 @@ type Dropdown1Props = {
   disabled?: boolean
   label?: string
   errorMessage?: string
-  [key: string]: any
+  maxVisibleItemsCount?: number
+  menuWidth?: string | number
+  onSelectOption?: (option: DropdownOption) => void
+  hasOptionsCondition?: boolean
+  hasNoOptionsCondition?: boolean
 }
 
 const DEFAULT_OPTION = Object.freeze({ value: "", label: "" })
+const DEFAULT_MENU_ITEM_HEIGHT = 48
 
 const Dropdown1 = ({
   className = "",
   placeholder = "",
   option = DEFAULT_OPTION,
   options = [],
-  menuPosition = "bottom",
+  menuPosition = DropdownMenuPosition.BOTTOM,
   disabled = false,
   label,
   errorMessage,
-  ...otherProps
-}: Readonly<Dropdown1Props>) => {
+  maxVisibleItemsCount = 4,
+  menuWidth = "100%",
+  onSelectOption,
+  children,
+  hasOptionsCondition = true,
+  hasNoOptionsCondition = true,
+}: PropsWithChildren<Readonly<Dropdown1Props>>) => {
   const dropdownRef = useRef<HTMLDivElement>(null)
+
   const [selectedOption, setSelectedOption] = useState<DropdownOption>(option)
-  const [menuDisplayed, setMenuDisplayed] = useState(false)
+  const [menuOpened, setMenuOpened] = useState(false)
 
   const toggleMenuDisplay = () => {
-    setMenuDisplayed((menuDisplay) => !menuDisplay)
+    setMenuOpened((menuOpenState) => !menuOpenState)
   }
 
   const selectOption = (option: DropdownOption) => {
     if (disabled) return
     setSelectedOption(option)
-    setMenuDisplayed(false)
-    otherProps.onChange(option.value)
+    setMenuOpened(false)
+    onSelectOption?.(option)
   }
 
   useEffect(() => {
-    const handleClickOutsideOfDropdown = (event: any) => {
-      if (!dropdownRef.current || dropdownRef.current.contains(event.target))
+    const handleClickOutsideOfDropdown = (event: MouseEvent) => {
+      if (
+        !dropdownRef.current ||
+        dropdownRef.current.contains(event.target as Node)
+      )
         return
-      setMenuDisplayed(false)
+      setMenuOpened(false)
     }
     document.addEventListener("mousedown", handleClickOutsideOfDropdown)
     return () => {
@@ -62,7 +82,8 @@ const Dropdown1 = ({
     }
   }, [])
 
-  const hasOptions = Boolean(options.length)
+  const hasNoOptions = !options.length && hasNoOptionsCondition
+  const hasOptions = Boolean(options.length) && hasOptionsCondition
 
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>
@@ -77,38 +98,49 @@ const Dropdown1 = ({
           <span className={clsx(!selectedOption.label && "text-zinc-400")}>
             {selectedOption.label ? selectedOption.label : placeholder}
           </span>
-          <ArrowButton1
-            className={clsx("w-5 h-5", menuDisplayed && "rotate-180")}
-          />
+          <ArrowIcon1 className={clsx("w-5 h-5", menuOpened && "rotate-180")} />
         </div>
       </button>
-      {menuDisplayed && (
+      {menuOpened && (
         <div
           className={clsx(
             "absolute bg-white border-solid border-gray-400 rounded border-2",
             menuPosition === "top" ? "bottom-14" : "top-14"
           )}
+          style={{
+            width: menuWidth,
+            zIndex: 1,
+          }}
         >
-          {!hasOptions && <div className="p-4 w-max">Has no options</div>}
-          {hasOptions &&
-            options.map((option: DropdownOption, index: number) => {
-              const key = index
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  className={clsx(
-                    "text-left w-full hover:bg-gray-200 py-3 px-4",
-                    selectedOption === option && "bg-gray-100"
-                  )}
-                  onClick={() => {
-                    selectOption(option)
-                  }}
-                >
-                  {option.label}
-                </button>
-              )
-            })}
+          {children}
+          {hasNoOptions && <div className="p-4 w-max">Has no options</div>}
+          {hasOptions && (
+            <div
+              className="overflow-x-hidden overflow-y-auto"
+              style={{
+                maxHeight: maxVisibleItemsCount * DEFAULT_MENU_ITEM_HEIGHT,
+              }}
+            >
+              {options?.map((option: DropdownOption, index: number) => {
+                const key = index
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    className={clsx(
+                      "text-left w-full hover:bg-gray-200 py-3 px-4 one-line-ellipsis h-12",
+                      selectedOption === option && "bg-gray-100"
+                    )}
+                    onClick={() => {
+                      selectOption(option)
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                )
+              })}
+            </div>
+          )}
         </div>
       )}
       {errorMessage && <p className="text-red-600">{errorMessage}</p>}

@@ -4,7 +4,8 @@ import clsx from "clsx"
 
 import MenuItem1 from "./MenuItem1"
 import { SidebarMenuGroupType, SidebarMenuItemType } from "../Sidebar1.config"
-import ArrowButton1 from "@components/buttons/ArrowButton1"
+import { HIGHEST_BG_COLOR_LEVEL, THEME_COLORS } from "./MenuGroup1.utils"
+import ArrowIcon1 from "@components/common/icons/ArrowIcon1"
 
 type MenuGroup1Props = {
   className?: string
@@ -13,20 +14,6 @@ type MenuGroup1Props = {
   accumulatedLinkPath: string
   minified: boolean
 }
-
-const HIGHEST_BG_COLOR_LEVEL = 7
-
-const THEME_COLORS: Record<number, string> = Object.freeze({
-  1: "bg-sky-100",
-  2: "bg-sky-200",
-  3: "bg-sky-300",
-  4: "bg-sky-400",
-  5: "bg-sky-500",
-  6: "bg-sky-600",
-  7: "bg-sky-700",
-  8: "bg-sky-800",
-  9: "bg-sky-900",
-})
 
 function MenuGroup1({
   config,
@@ -40,7 +27,7 @@ function MenuGroup1({
   const hasMenu = has(config, "menu")
   const label = config.label
   const colorLevel = HIGHEST_BG_COLOR_LEVEL - nestedLevel
-  const labelIndentation = minified ? 6 : 16
+  const labelIndentation = minified ? 8 : 16
 
   const toggleCollapse = () => {
     setCollapsed((collapsedState) => !collapsedState)
@@ -86,7 +73,7 @@ function MenuGroup1({
         >
           {label}
         </span>
-        <ArrowButton1
+        <ArrowIcon1
           className={clsx("w-3 h3", !collapsed && "rotate-180")}
           color="white"
           style={{ fill: "white" }}

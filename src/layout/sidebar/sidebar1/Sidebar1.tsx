@@ -13,7 +13,7 @@ type SidebarProps = {
 
 function Sidebar({ expanded }: Readonly<SidebarProps>) {
   return (
-    <aside className="h-screen bg-sky-400">
+    <aside className="h-screen bg-sky-400 __app__layout__sidebar">
       <div className="flex justify-start items-center gap-5 p-5 mb-12">
         <img
           src="/logo.jpg"
@@ -23,7 +23,7 @@ function Sidebar({ expanded }: Readonly<SidebarProps>) {
         />
         {expanded && (
           <span className="text-white text-xl font-semibold">
-            React sample App
+            React Sample App
           </span>
         )}
       </div>
