@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, PropsWithChildren } from "react"
 import clsx from "clsx"
-import isArray from "lodash/isArray"
 
 import { DropdownOption } from "@types/components"
 import ArrowIcon1 from "../icons/ArrowIcon1"
@@ -40,7 +39,7 @@ const Dropdown1 = ({
   className = "",
   placeholder = "",
   option = DEFAULT_OPTION,
-  options,
+  options = [],
   menuPosition = DropdownMenuPosition.BOTTOM,
   disabled = false,
   label,
@@ -83,10 +82,8 @@ const Dropdown1 = ({
     }
   }, [])
 
-  const hasNoOptions =
-    isArray(options) && !options.length && hasNoOptionsCondition
-  const hasOptions =
-    isArray(options) && Boolean(options.length) && hasOptionsCondition
+  const hasNoOptions = !options.length && hasNoOptionsCondition
+  const hasOptions = Boolean(options.length) && hasOptionsCondition
 
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>
