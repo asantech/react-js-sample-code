@@ -11,6 +11,7 @@ function DropdownSegment1() {
           placeholder="Country Name"
           options={COUNTRY_NAMES}
           menuWidth={270}
+          minSearchTextLength={3}
         />
       </div>
     </>

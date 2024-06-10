@@ -37,6 +37,7 @@ function DropdownSegment2() {
           onChangeCallback={onSearchInputChange}
           isOnline
           isLoading={isSearching}
+          minSearchTextLength={3}
         />
       </div>
     </>

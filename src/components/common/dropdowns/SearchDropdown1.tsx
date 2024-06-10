@@ -31,6 +31,7 @@ type Dropdown1Props = {
   menuWidth?: string | number
   isLoading?: boolean
   isOnline?: boolean
+  minSearchTextLength?: number
   searchType?: SearchType
   onSelectOption?: (option: DropdownOption) => void
   onChangeCallback?: (inputValue: string) => void
@@ -42,7 +43,7 @@ const debouncedOnChange = debounce((func) => {
   func()
 }, 700)
 
-const getSearchTypePredicate = (searchedText: string) => ({
+const getOfflineSearchTypePredicate = (searchedText: string) => ({
   [SearchType.INCLUDES]: (item: DropdownOption) =>
     item.label.toLowerCase().includes(searchedText.toLowerCase()),
   [SearchType.INCLUDES_STRICT]: (item: DropdownOption) =>
@@ -66,25 +67,30 @@ const SearchDropdown1 = ({
   isLoading = false,
   menuWidth = "100%",
   isOnline,
+  minSearchTextLength = 1,
   searchType = SearchType.INCLUDES,
   onChangeCallback,
 }: Readonly<Dropdown1Props>) => {
   const [searchedText, setSearchedText] = useState("")
 
   const searchPredicate = useMemo(
-    () => getSearchTypePredicate(searchedText)[searchType],
+    () => getOfflineSearchTypePredicate(searchedText)[searchType],
     [searchedText, searchType]
   )
 
   const onSearchInputChange = (event: any) => {
-    const searchInputValue = event.target.value
+    const searchInputValue = event.target.value.trim()
     setSearchedText(searchInputValue)
+    if (searchInputValue.length < minSearchTextLength) return
     debouncedOnChange(() => {
       onChangeCallback?.(searchInputValue)
     })
   }
 
-  const offlineFilteredOptions = options?.filter(searchPredicate)
+  const hasNotSearchTextMinLength = searchedText.length < minSearchTextLength
+  const offlineFilteredOptions = hasNotSearchTextMinLength
+    ? options
+    : options?.filter(searchPredicate)
   const generatedOptions = isOnline ? options : offlineFilteredOptions
 
   return (
@@ -109,7 +115,6 @@ const SearchDropdown1 = ({
             isLoading ? "pl-3 pr-9" : "px-3"
           )}
           placeholder="Search..."
-          value={searchedText}
           onChange={onSearchInputChange}
           onKeyDown={() => {
             debouncedOnChange.cancel()
