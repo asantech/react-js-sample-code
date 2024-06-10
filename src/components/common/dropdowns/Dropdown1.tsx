@@ -28,8 +28,8 @@ type Dropdown1Props = {
   maxVisibleItemsCount?: number
   menuWidth?: string | number
   onSelectOption?: (option: DropdownOption) => void
-  hasOptionsCondition?: boolean
-  hasNoOptionsCondition?: boolean
+  hasOptionsAddedCondition?: boolean
+  hasNoOptionsAddedCondition?: boolean
 }
 
 const DEFAULT_OPTION = Object.freeze({ value: "", label: "" })
@@ -48,8 +48,8 @@ const Dropdown1 = ({
   menuWidth = "100%",
   onSelectOption,
   children,
-  hasOptionsCondition = true,
-  hasNoOptionsCondition = true,
+  hasOptionsAddedCondition = true,
+  hasNoOptionsAddedCondition = true,
 }: PropsWithChildren<Readonly<Dropdown1Props>>) => {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -83,8 +83,8 @@ const Dropdown1 = ({
     }
   }, [])
 
-  const hasNoOptions = !options.length && hasNoOptionsCondition
-  const hasOptions = Boolean(options.length) && hasOptionsCondition
+  const hasNoOptions = !options.length && hasNoOptionsAddedCondition
+  const hasOptions = Boolean(options.length) && hasOptionsAddedCondition
 
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>

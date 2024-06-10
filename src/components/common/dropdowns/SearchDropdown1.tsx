@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useRef } from "react"
 import clsx from "clsx"
 import debounce from "lodash/debounce"
 
@@ -58,7 +58,7 @@ const SearchDropdown1 = ({
   className = "",
   placeholder = "",
   option = DEFAULT_OPTION,
-  options,
+  options = [],
   menuPosition = DropdownMenuPosition.BOTTOM,
   disabled = false,
   label,
@@ -71,6 +71,7 @@ const SearchDropdown1 = ({
   searchType = SearchType.INCLUDES,
   onChangeCallback,
 }: Readonly<Dropdown1Props>) => {
+  const searchInputRef = useRef<HTMLInputElement>()
   const [searchedText, setSearchedText] = useState("")
 
   const searchPredicate = useMemo(
@@ -87,11 +88,19 @@ const SearchDropdown1 = ({
     })
   }
 
+  const clearSearchText = () => {
+    searchInputRef.current!.value = ""
+    setSearchedText("")
+  }
+
   const hasNotSearchTextMinLength = searchedText.length < minSearchTextLength
   const offlineFilteredOptions = hasNotSearchTextMinLength
     ? options
     : options?.filter(searchPredicate)
   const generatedOptions = isOnline ? options : offlineFilteredOptions
+  const hasNoOptionsAddedCondition = isOnline
+    ? !isLoading && searchedText.length >= minSearchTextLength
+    : Boolean(searchedText)
 
   return (
     <Dropdown1
@@ -105,14 +114,15 @@ const SearchDropdown1 = ({
       menuWidth={menuWidth}
       menuPosition={menuPosition}
       errorMessage={errorMessage}
-      hasNoOptionsCondition={!isLoading && Boolean(searchedText)}
-      hasOptionsCondition={!isLoading}
+      hasNoOptionsAddedCondition={hasNoOptionsAddedCondition}
+      hasOptionsAddedCondition={!isLoading}
     >
       <div className="py-3 px-4 relative flex items-center">
         <input
+          ref={searchInputRef}
           className={clsx(
             "w-full py-2 outline-none bg-slate-200 rounded-md",
-            isLoading ? "pl-3 pr-9" : "px-3"
+            searchedText ? (isLoading ? "pl-3 pr-12" : "pl-3 pr-9") : "px-3"
           )}
           placeholder="Search..."
           onChange={onSearchInputChange}
@@ -121,8 +131,16 @@ const SearchDropdown1 = ({
           }}
         ></input>
         {isLoading && (
-          <div className="w-5 h-5 absolute right-6">
+          <div className="w-5 h-5 absolute right-10">
             <CustomSpinner />
+          </div>
+        )}
+        {searchedText && (
+          <div
+            className="w-5 h-5 absolute right-5 cursor-pointer"
+            onClick={clearSearchText}
+          >
+            <img src="/svgs/close.svg" alt="Close Icon" />
           </div>
         )}
       </div>
