@@ -7,10 +7,16 @@ const searchData = (records: any, predicate: any) => {
     return searchedValues
 }
 
-export const getCountries = async (searchedText: string) => {
+export const getCountries = async (searchedText: string, offset?: number, itemsCount?: number) => {
     const searchedCountries = searchData(countriesDB, (country: DropdownOption) => {
         return country.label.toLowerCase().includes(searchedText)
     })
+    let countries
+    if(offset && itemsCount){
+        countries = searchedCountries.slice(offset, itemsCount - 1)
+    }else{
+        countries= searchedCountries
+    }
     // throw Error()
-    return await getValueAfterDelay(searchedCountries, 1500) as any
+    return await getValueAfterDelay(countries, 1500) as any
 } 

@@ -33,6 +33,8 @@ type Dropdown1Props = {
   isOnline?: boolean
   minSearchTextLength?: number
   searchType?: SearchType
+  noExtraWhiteSpaces?: boolean
+  clearableOnSearch?: boolean
   onSelectOption?: (option: DropdownOption) => void
   onChangeCallback?: (inputValue: string) => void
 }
@@ -54,6 +56,11 @@ const getOfflineSearchTypePredicate = (searchedText: string) => ({
     item.label === searchedText,
 })
 
+const removeTextExtraWhiteSpaces = (text: string) => {
+  const refinedText = text.split(/\s+/).join(" ")
+  return refinedText
+}
+
 const SearchDropdown1 = ({
   className = "",
   placeholder = "",
@@ -70,14 +77,19 @@ const SearchDropdown1 = ({
   minSearchTextLength = 1,
   searchType = SearchType.INCLUDES,
   onChangeCallback,
+  noExtraWhiteSpaces = true,
+  clearableOnSearch = true,
 }: Readonly<Dropdown1Props>) => {
   const searchInputRef = useRef<HTMLInputElement>()
+
   const [searchedText, setSearchedText] = useState("")
 
-  const searchPredicate = useMemo(
-    () => getOfflineSearchTypePredicate(searchedText)[searchType],
-    [searchedText, searchType]
-  )
+  const searchPredicate = useMemo(() => {
+    const refinedSearchText = noExtraWhiteSpaces
+      ? removeTextExtraWhiteSpaces(searchedText)
+      : searchedText
+    return getOfflineSearchTypePredicate(refinedSearchText)[searchType]
+  }, [searchedText, searchType, noExtraWhiteSpaces])
 
   const onSearchInputChange = (event: any) => {
     const searchInputValue = event.target.value.trim()
@@ -101,6 +113,7 @@ const SearchDropdown1 = ({
   const hasNoOptionsAddedCondition = isOnline
     ? !isLoading && searchedText.length >= minSearchTextLength
     : Boolean(searchedText)
+  const showClearButton = clearableOnSearch ? searchedText : !isLoading
 
   return (
     <Dropdown1
@@ -131,17 +144,22 @@ const SearchDropdown1 = ({
           }}
         ></input>
         {isLoading && (
-          <div className="w-5 h-5 absolute right-10">
+          <div
+            className={clsx(
+              "w-5 h-5 absolute",
+              clearableOnSearch ? "right-10" : "right-5"
+            )}
+          >
             <CustomSpinner />
           </div>
         )}
-        {searchedText && (
-          <div
+        {showClearButton && (
+          <button
             className="w-5 h-5 absolute right-5 cursor-pointer"
             onClick={clearSearchText}
           >
             <img src="/svgs/close.svg" alt="Close Icon" />
-          </div>
+          </button>
         )}
       </div>
     </Dropdown1>
