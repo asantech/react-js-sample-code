@@ -80,7 +80,7 @@ const SearchDropdown1 = ({
   noExtraWhiteSpaces = true,
   clearableOnSearch = true,
 }: Readonly<Dropdown1Props>) => {
-  const searchInputRef = useRef<HTMLInputElement>()
+  const searchInputRef = useRef<any>()
 
   const [searchedText, setSearchedText] = useState("")
 
@@ -113,7 +113,7 @@ const SearchDropdown1 = ({
   const hasNoOptionsAddedCondition = isOnline
     ? !isLoading && searchedText.length >= minSearchTextLength
     : Boolean(searchedText)
-  const showClearButton = clearableOnSearch ? searchedText : !isLoading
+  const showClearButton = clearableOnSearch ? Boolean(searchedText) : !isLoading
 
   return (
     <Dropdown1
@@ -131,35 +131,21 @@ const SearchDropdown1 = ({
       hasOptionsAddedCondition={!isLoading}
     >
       <div className="py-3 px-4 relative flex items-center">
-        <input
-          ref={searchInputRef}
+        <SearchInput
+          searchInputRef={searchInputRef}
+          searchedText={searchedText}
           className={clsx(
             "w-full py-2 outline-none bg-slate-200 rounded-md",
             searchedText ? (isLoading ? "pl-3 pr-12" : "pl-3 pr-9") : "px-3"
           )}
-          placeholder="Search..."
-          onChange={onSearchInputChange}
+          onSearchInputChange={onSearchInputChange}
           onKeyDown={() => {
             debouncedOnChange.cancel()
           }}
-        ></input>
-        {isLoading && (
-          <div
-            className={clsx(
-              "w-5 h-5 absolute",
-              clearableOnSearch ? "right-10" : "right-5"
-            )}
-          >
-            <CustomSpinner />
-          </div>
-        )}
+        />
+        {isLoading && <SpinnerWrapper clearableOnSearch={clearableOnSearch} />}
         {showClearButton && (
-          <button
-            className="w-5 h-5 absolute right-5 cursor-pointer"
-            onClick={clearSearchText}
-          >
-            <img src="/svgs/close.svg" alt="Close Icon" />
-          </button>
+          <ClearSearchTextButton clearSearchText={clearSearchText} />
         )}
       </div>
     </Dropdown1>
@@ -167,3 +153,64 @@ const SearchDropdown1 = ({
 }
 
 export default SearchDropdown1
+
+type ClearSearchTextButtonProps = {
+  clearSearchText: () => void
+}
+
+const ClearSearchTextButton = ({
+  clearSearchText,
+}: ClearSearchTextButtonProps) => {
+  return (
+    <button
+      className="w-5 h-5 absolute right-5 cursor-pointer"
+      onClick={clearSearchText}
+    >
+      <img src="/svgs/close.svg" alt="Close Icon" />
+    </button>
+  )
+}
+
+type SpinnerWrapperProps = {
+  clearableOnSearch: boolean
+}
+
+const SpinnerWrapper = ({ clearableOnSearch }: SpinnerWrapperProps) => {
+  return (
+    <div
+      className={clsx(
+        "w-5 h-5 absolute",
+        clearableOnSearch ? "right-10" : "right-5"
+      )}
+    >
+      <CustomSpinner />
+    </div>
+  )
+}
+
+type SearchInputProps = {
+  searchInputRef: any
+  className: string
+  searchedText: string
+  onSearchInputChange: (event: any) => void
+  onKeyDown: () => void
+}
+
+const SearchInput = ({
+  searchInputRef,
+  searchedText,
+  className,
+  onSearchInputChange,
+  onKeyDown,
+}: SearchInputProps) => {
+  return (
+    <input
+      ref={searchInputRef}
+      defaultValue={searchedText}
+      className={className}
+      placeholder="Search..."
+      onChange={onSearchInputChange}
+      onKeyDown={onKeyDown}
+    />
+  )
+}

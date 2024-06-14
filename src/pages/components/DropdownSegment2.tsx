@@ -27,8 +27,9 @@ function DropdownSegment2() {
   }
 
   return (
-    <>
+    <div className="py-3 px-4">
       <h2 className="my-2">Dropdown with online search</h2>
+      <p>Configuration approach is used</p>
       <div className="py-5">
         <SearchDropdown1
           placeholder="Country Name"
@@ -40,7 +41,7 @@ function DropdownSegment2() {
           minSearchTextLength={1}
         />
       </div>
-    </>
+    </div>
   )
 }
 

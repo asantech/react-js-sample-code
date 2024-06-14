@@ -1,13 +1,9 @@
 import { forwardRef } from "react"
 import clsx from "clsx"
 
-type DropdownOption = {
-  value: string | number
-  label: string
-  data?: Record<string, string>
-}
+import { DropdownOption } from "@types/components"
 
-type Dropdown1Props = {
+type Dropdown2Props = {
   className?: string
   options?: DropdownOption[]
   disabled?: boolean
@@ -20,7 +16,7 @@ const Dropdown2 = forwardRef(
       options = [],
       disabled,
       ...otherProps
-    }: Readonly<Dropdown1Props>,
+    }: Readonly<Dropdown2Props>,
     ref
   ) => {
     const hasOptions = Boolean(options.length)
