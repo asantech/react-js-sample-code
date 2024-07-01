@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import clsx from "clsx"
 
-import { Variant } from "@types/styles"
+import { Variant } from "@type/styles"
 import { buttonVariants } from "./CustomButton.constants"
 import CustomSpinner from "../spinners/CustomSpinner"
 

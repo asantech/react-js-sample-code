@@ -1,4 +1,4 @@
-import { Variant } from "@types/styles"
+import { Variant } from "@typestyles"
 
 export const buttonVariants: Record<Variant, string> = Object.freeze({
   primary: "bg-sky-500",

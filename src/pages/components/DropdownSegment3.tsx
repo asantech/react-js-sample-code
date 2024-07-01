@@ -2,9 +2,10 @@ import { useState } from "react"
 
 import { getCountries } from "@services/mocks/search"
 import { DropdownOption } from "@type/components"
-import SearchDropdown1 from "@components/common/dropdowns/SearchDropdown1"
+import SearchDropdown2 from "@components/common/dropdowns/SearchDropdown2"
+import { DropdownMenuPosition } from "@components/common/dropdowns/Dropdown.utils"
 
-function DropdownSegment2() {
+function DropdownSegment3() {
   const [isSearching, setIsSearching] = useState(false)
   const [countries, setCountries] = useState<DropdownOption[]>()
 
@@ -29,14 +30,15 @@ function DropdownSegment2() {
   return (
     <div className="py-3 px-4">
       <h2 className="my-2">Dropdown with online search</h2>
-      <p>Configuration approach is used</p>
+      <p>Composition pattern approach is used</p>
       <div className="py-5">
-        <SearchDropdown1
+        <SearchDropdown2
           placeholder="Country Name"
           menuWidth={270}
           options={countries}
           onChangeCallback={onSearchInputChange}
           isOnline
+          menuPosition={DropdownMenuPosition.TOP}
           isLoading={isSearching}
           minSearchTextLength={1}
         />
@@ -45,4 +47,4 @@ function DropdownSegment2() {
   )
 }
 
-export default DropdownSegment2
+export default DropdownSegment3
