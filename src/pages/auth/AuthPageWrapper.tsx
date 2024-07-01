@@ -9,7 +9,7 @@ function AuthPageWrapper({ children }: Readonly<PropsWithChildren>) {
         className="col-span-6 flex py-20 justify-start items-center flex-col gap-12 h-screen"
         style={{ backgroundColor: colors.blueAlpha }}
       >
-        <img className="w-96 h-96" src="/logo.jpg" alt="App Logo" />
+        <img className="w-96 h-96" src="/logo.png" alt="App Logo" />
         <div>
           <p className="text-2xl font-semibold text-center mb-4">
             A React JS reference app

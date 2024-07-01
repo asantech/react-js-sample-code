@@ -14,9 +14,14 @@ type SidebarProps = {
 function Sidebar({ expanded }: Readonly<SidebarProps>) {
   return (
     <aside className="h-screen bg-sky-400 __app__layout__sidebar">
-      <div className="flex justify-start items-center gap-5 p-5 mb-12">
+      <div
+        className={clsx(
+          "flex justify-start items-center gap-5 py-5 mb-12",
+          expanded ? "px-8" : "px-4"
+        )}
+      >
         <img
-          src="/logo.jpg"
+          src="/logo.png"
           alt="App Logo"
           className="w-16"
           style={{ borderRadius: "50%" }}

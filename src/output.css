@@ -570,6 +570,10 @@ video {
   right: 0px;
 }
 
+.right-6 {
+  right: 1.5rem;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -578,20 +582,24 @@ video {
   top: 3.5rem;
 }
 
-.left-0 {
-  left: 0px;
+.right-12 {
+  right: 3rem;
+}
+
+.right-11 {
+  right: 2.75rem;
 }
 
 .right-5 {
   right: 1.25rem;
 }
 
-.right-7 {
-  right: 1.75rem;
+.right-10 {
+  right: 2.5rem;
 }
 
-.right-6 {
-  right: 1.5rem;
+.right-4 {
+  right: 1rem;
 }
 
 .col-span-6 {
@@ -678,6 +686,10 @@ video {
   display: grid;
 }
 
+.contents {
+  display: contents;
+}
+
 .h-12 {
   height: 3rem;
 }
@@ -696,6 +708,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .min-h-10 {
@@ -747,6 +763,10 @@ video {
   width: max-content;
 }
 
+.w-4 {
+  width: 1rem;
+}
+
 .max-w-96 {
   max-width: 24rem;
 }
@@ -764,6 +784,10 @@ video {
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .grid-cols-12 {
@@ -808,10 +832,6 @@ video {
 
 .overflow-x-hidden {
   overflow-x: hidden;
-}
-
-.overflow-y-scroll {
-  overflow-y: scroll;
 }
 
 .rounded {
@@ -1005,24 +1025,20 @@ video {
   padding-right: 1rem;
 }
 
-.pr-5 {
-  padding-right: 1.25rem;
+.pr-9 {
+  padding-right: 2.25rem;
 }
 
 .pt-20 {
   padding-top: 5rem;
 }
 
+.pr-12 {
+  padding-right: 3rem;
+}
+
 .pr-8 {
   padding-right: 2rem;
-}
-
-.pr-10 {
-  padding-right: 2.5rem;
-}
-
-.pr-9 {
-  padding-right: 2.25rem;
 }
 
 .text-left {

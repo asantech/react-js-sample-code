@@ -3,17 +3,18 @@ import SearchDropdown1 from "@components/common/dropdowns/SearchDropdown1"
 
 function DropdownSegment1() {
   return (
-    <>
-      <p>Different dropdown components with different functionalities</p>
+    <div className="py-3 px-4">
       <h2 className="my-2">Dropdown with offline search</h2>
+      <p>Configuration approach is used</p>
       <div className="py-5">
         <SearchDropdown1
           placeholder="Country Name"
           options={COUNTRY_NAMES}
           menuWidth={270}
+          minSearchTextLength={3}
         />
       </div>
-    </>
+    </div>
   )
 }
 
