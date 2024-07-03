@@ -157,4 +157,15 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
       },
     ],
   },
+  {
+    label: "Mocks",
+    iconPath: "",
+    linkPath: "/mocks",
+    menu: [
+      {
+        label: "Air Bnb",
+        linkPath: "/air-bnb",
+      },
+    ],
+  },
 ]

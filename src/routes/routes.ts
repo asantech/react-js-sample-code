@@ -7,5 +7,8 @@ export const routes = Object.freeze({
     COMPONENTS: {
         DROPDOWNS: '/components/dropdowns'
     },
-    DASHBOARD: '/'
+    DASHBOARD: '/',
+    MOCKS: {
+        AIR_BNB: '/mocks/air-bnb'
+    }
 })
