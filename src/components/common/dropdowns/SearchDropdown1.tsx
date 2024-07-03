@@ -25,7 +25,7 @@ const SearchDropdown1 = ({
   disabled = false,
   label,
   errorMessage,
-  maxVisibleItemsCount = 4,
+  maxVisibleItemsCount,
   isLoading = false,
   menuWidth = "100%",
   isOnline,
@@ -70,6 +70,14 @@ const SearchDropdown1 = ({
     : Boolean(searchedText)
   const showClearButton = clearableOnSearch ? Boolean(searchedText) : !isLoading
 
+  const filledSearchInputPaddingClassName = isLoading
+    ? "pl-3 pr-12"
+    : "pl-3 pr-9"
+  const searchInputClassName = clsx(
+    "w-full py-2 outline-none bg-slate-200 rounded-md",
+    searchedText ? filledSearchInputPaddingClassName : "px-3"
+  )
+
   return (
     <Dropdown2
       className={className}
@@ -89,10 +97,7 @@ const SearchDropdown1 = ({
         <SearchInput
           searchInputRef={searchInputRef}
           searchedText={searchedText}
-          className={clsx(
-            "w-full py-2 outline-none bg-slate-200 rounded-md",
-            searchedText ? (isLoading ? "pl-3 pr-12" : "pl-3 pr-9") : "px-3"
-          )}
+          className={searchInputClassName}
           onChange={onSearchInputChange}
           onKeyDown={() => {
             debouncedOnChange.cancel()

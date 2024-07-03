@@ -76,7 +76,7 @@ const SearchDropdown2 = ({
   disabled = false,
   label,
   errorMessage,
-  maxVisibleItemsCount = 4,
+  maxVisibleItemsCount,
   isLoading = false,
   menuWidth = "100%",
   isOnline,
@@ -120,9 +120,12 @@ const SearchDropdown2 = ({
     ? !isLoading && searchedText.length >= minSearchTextLength
     : Boolean(searchedText)
   const showClearButton = clearableOnSearch ? Boolean(searchedText) : !isLoading
+  const filledSearchInputPaddingClassName = isLoading
+    ? "pl-3 pr-12"
+    : "pl-3 pr-9"
   const searchInputClassName = clsx(
     "w-full py-2 outline-none bg-slate-200 rounded-md",
-    searchedText ? (isLoading ? "pl-3 pr-12" : "pl-3 pr-9") : "px-3"
+    searchedText ? filledSearchInputPaddingClassName : "px-3"
   )
 
   return (

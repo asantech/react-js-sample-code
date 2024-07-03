@@ -4,7 +4,6 @@ import {
   useEffect,
   PropsWithChildren,
   CSSProperties,
-  RefObject,
 } from "react"
 import clsx from "clsx"
 
@@ -34,14 +33,31 @@ type DropdownProps = {
 
 type DropdownRootProps = {
   className?: string
-  dropdownRef?: RefObject<HTMLDivElement>
+  onOuterClick: () => void
 }
 
 const DropdownRoot = ({
   className = "",
-  dropdownRef,
+  onOuterClick,
   children,
 }: PropsWithChildren<DropdownRootProps>) => {
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutsideOfDropdown = (event: MouseEvent) => {
+      if (
+        !dropdownRef.current ||
+        dropdownRef.current.contains(event.target as Node)
+      )
+        return
+      onOuterClick()
+    }
+    document.addEventListener("mousedown", handleClickOutsideOfDropdown)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideOfDropdown)
+    }
+  }, [])
+
   return (
     <div ref={dropdownRef} className={clsx("relative inline-block", className)}>
       {children}
@@ -172,13 +188,15 @@ const Dropdown3 = ({
   hasNoOptionsAddedCondition = true,
   children,
 }: PropsWithChildren<DropdownProps>) => {
-  const dropdownRef = useRef<HTMLDivElement>(null)
-
   const [selectedOption, setSelectedOption] = useState<DropdownOption>(option)
   const [menuOpened, setMenuOpened] = useState(false)
 
   const toggleMenuDisplay = () => {
     setMenuOpened((menuOpenState) => !menuOpenState)
+  }
+
+  const onDropdownOuterClick = () => {
+    setMenuOpened(false)
   }
 
   const selectOption = (option: DropdownOption) => {
@@ -193,26 +211,6 @@ const Dropdown3 = ({
     selectOption(option)
   }
 
-  useEffect(() => {
-    const handleClickOutsideOfDropdown = (event: MouseEvent) => {
-      if (
-        !dropdownRef.current ||
-        dropdownRef.current.contains(event.target as Node)
-      )
-        return
-      setMenuOpened(false)
-    }
-    document.addEventListener("mousedown", handleClickOutsideOfDropdown)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutsideOfDropdown)
-    }
-  }, [])
-
-  const dropdownMenuClassName = clsx(
-    "absolute bg-white border-solid border-gray-400 rounded border-2",
-    menuPosition === "top" ? "bottom-14" : "top-14"
-  )
-
   const menuOptionsWrapperStyle = {
     maxHeight: maxVisibleItemsCount * DEFAULT_MENU_ITEM_HEIGHT,
   }
@@ -220,12 +218,16 @@ const Dropdown3 = ({
   const hasNoOptions = !options.length && hasNoOptionsAddedCondition
   const hasOptions = Boolean(options.length) && hasOptionsAddedCondition
   const selectedOptionLabel = selectedOption.label
-  const dropdownText = selectedOptionLabel ? selectedOptionLabel : placeholder
+  const dropdownText = selectedOptionLabel || placeholder
   const dropdownTextClassName = clsx(!selectedOptionLabel && "text-zinc-400")
+  const dropdownMenuClassName = clsx(
+    "absolute bg-white border-solid border-gray-400 rounded border-2",
+    menuPosition === "top" ? "bottom-14" : "top-14"
+  )
   const arrowIconClassName = clsx("w-5 h-5", menuOpened && "rotate-180")
 
   return (
-    <Dropdown.Root dropdownRef={dropdownRef} className={className}>
+    <Dropdown.Root className={className} onOuterClick={onDropdownOuterClick}>
       {label && <Dropdown.Label>{label}</Dropdown.Label>}
       {
         <Dropdown.Button onClick={toggleMenuDisplay}>
@@ -242,14 +244,14 @@ const Dropdown3 = ({
           {hasOptions && (
             <Dropdown.MenuOptions style={menuOptionsWrapperStyle}>
               {options?.map((option: DropdownOption, index: number) => (
-                <DropdownMenuOption
+                <Dropdown.MenuOption
                   key={index}
                   option={option}
                   selectedOption={selectedOption}
                   onOptionClick={onMenuOptionClick}
                 >
                   {option.label}
-                </DropdownMenuOption>
+                </Dropdown.MenuOption>
               ))}
             </Dropdown.MenuOptions>
           )}
