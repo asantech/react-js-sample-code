@@ -168,4 +168,15 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
       },
     ],
   },
+  {
+    label: "Q&A",
+    iconPath: "",
+    linkPath: "/q-and-a",
+    menu: [
+      {
+        label: "React JS",
+        linkPath: "/react-js",
+      },
+    ],
+  },
 ]
