@@ -1,9 +1,10 @@
 import COUNTRY_NAMES from "../../mock/db/countries.json"
 import SearchDropdown1 from "@components/common/dropdowns/SearchDropdown1"
+import DropdownSegmentWrapper from "./DropdownSegmentWrapper"
 
 function DropdownSegment1() {
   return (
-    <div className="py-3 px-4">
+    <DropdownSegmentWrapper>
       <h2 className="my-2">Dropdown with offline search</h2>
       <p>Configuration approach is used</p>
       <div className="py-5">
@@ -14,7 +15,7 @@ function DropdownSegment1() {
           minSearchTextLength={3}
         />
       </div>
-    </div>
+    </DropdownSegmentWrapper>
   )
 }
 

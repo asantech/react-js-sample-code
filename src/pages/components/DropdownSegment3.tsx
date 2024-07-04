@@ -4,6 +4,7 @@ import { getCountries } from "@services/mocks/search"
 import { DropdownOption } from "@type/components"
 import SearchDropdown2 from "@components/common/dropdowns/SearchDropdown2"
 import { DropdownMenuPosition } from "@components/common/dropdowns/Dropdown.utils"
+import DropdownSegmentWrapper from "./DropdownSegmentWrapper"
 
 function DropdownSegment3() {
   const [isSearching, setIsSearching] = useState(false)
@@ -28,7 +29,7 @@ function DropdownSegment3() {
   }
 
   return (
-    <div className="py-3 px-4">
+    <DropdownSegmentWrapper>
       <h2 className="my-2">Dropdown with online search</h2>
       <p>Composition pattern approach is used</p>
       <div className="py-5">
@@ -43,7 +44,7 @@ function DropdownSegment3() {
           minSearchTextLength={1}
         />
       </div>
-    </div>
+    </DropdownSegmentWrapper>
   )
 }
 

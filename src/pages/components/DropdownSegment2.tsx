@@ -3,6 +3,7 @@ import { useState } from "react"
 import { getCountries } from "@services/mocks/search"
 import { DropdownOption } from "@type/components"
 import SearchDropdown1 from "@components/common/dropdowns/SearchDropdown1"
+import DropdownSegmentWrapper from "./DropdownSegmentWrapper"
 
 function DropdownSegment2() {
   const [isSearching, setIsSearching] = useState(false)
@@ -27,7 +28,7 @@ function DropdownSegment2() {
   }
 
   return (
-    <div className="py-3 px-4">
+    <DropdownSegmentWrapper>
       <h2 className="my-2">Dropdown with online search</h2>
       <p>Configuration approach is used</p>
       <div className="py-5">
@@ -41,7 +42,7 @@ function DropdownSegment2() {
           minSearchTextLength={1}
         />
       </div>
-    </div>
+    </DropdownSegmentWrapper>
   )
 }
 
