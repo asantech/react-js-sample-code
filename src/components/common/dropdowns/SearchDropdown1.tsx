@@ -135,7 +135,7 @@ const SpinnerWrapper = ({ clearableOnSearch }: SpinnerWrapperProps) => {
         clearableOnSearch ? "right-10" : "right-5"
       )}
     >
-      <CustomSpinner />
+      <CustomSpinner addedClassName="border-t-gray-500" />
     </div>
   )
 }
