@@ -7,6 +7,7 @@ import { AuthData } from "@modules/auth/auth.types"
 import { User } from "@store/auth"
 import { getLocalStorage, setLocalStorage, removeFromLocalStorage } from "@utils/localStorage"
 import { hasAuthDataTokens, isTokenExpired, isUserDataValid } from '@modules/auth/auth.utils';
+import { setCookie } from "@utils/cookie"
 import { reqStructure } from "./base"
 
 const ACCESS_TOKEN_EXPIRE_DURATION = 3600
@@ -28,7 +29,6 @@ const getAuthDataMock = () => {
     const currentTimeStamp = Date.now()
     const accessTokenMock = encryptTextWithSecretKey({text: `${currentTimeStamp}-${ACCESS_TOKEN_EXPIRE_DURATION}`, secretKey: SECRET_KEY_MOCK})
     const refreshTokenMock = encryptTextWithSecretKey({text: `${currentTimeStamp}-${REFRESH_TOKEN_EXPIRE_DURATION}`, secretKey: SECRET_KEY_MOCK})
- 
     const authData = {
         auth: {
             accessToken: accessTokenMock,
@@ -36,6 +36,14 @@ const getAuthDataMock = () => {
         }
     }
     return authData
+}
+
+const setTokensToCookie = ({
+    accessToken,
+    refreshToken
+}:AuthTokens) => {
+    setCookie({name:"accessToken",value: accessToken, days: (1/24) * ACCESS_TOKEN_EXPIRE_DURATION})
+    setCookie({name:"refreshAccessToken",value: refreshToken, days: (3/24) * REFRESH_TOKEN_EXPIRE_DURATION})
 }
 
 const requestNewAccessToken = ({authTokens}: {authTokens: AuthTokens}) => {
@@ -63,7 +71,6 @@ export const makeAuthenticatedReq = async ({requestBody, requestLogic}: any) => 
         }
         const isAccessTokenExpired = isTokenExpired(authTokens.accessToken)
         if (isAccessTokenExpired) {
-
             requestNewAccessToken({authTokens})
             makeAuthenticatedReq({requestBody, requestLogic})
             return Promise.reject(new Error('Access token is expired'));
@@ -94,6 +101,10 @@ export const signInMock = async (formValues: FormValues): Promise<SignInMockResp
     if(userPassword !== passwordHash) return 
 
     const authData = getAuthDataMock()
+    setTokensToCookie({
+        accessToken: authData.auth.accessToken,
+        refreshToken: authData.auth.refreshToken
+    })
     const authDataMock = {
         user: userPublicData,
         ...authData
@@ -121,8 +132,11 @@ export const signUpMock = async (formValues: FormValues): Promise<SignInMockResp
         ...userPublicData,
         password: passwordHash,
     })
-
     const authData = getAuthDataMock()
+    setTokensToCookie({
+        accessToken: authData.auth.accessToken,
+        refreshToken: authData.auth.refreshToken
+    })
     const authDataMock = {
         user: userPublicData,
         ...authData

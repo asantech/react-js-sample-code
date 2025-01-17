@@ -39,7 +39,7 @@ function MainRoutes() {
     }
     checkUserAuthOnPageMount()
   }, [])
-
+ 
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
@@ -47,7 +47,7 @@ function MainRoutes() {
           path={routes.AUTH.SIGN_UP}
           element={
             <ProtectedRoute
-              isAllowed={!isAuthenticated} // isNotAllowed
+              isAllowed={!isAuthenticated}
               redirectTo={routes.DASHBOARD}
             >
               <SignUp />
