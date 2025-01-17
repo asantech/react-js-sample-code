@@ -1,5 +1,7 @@
 import { create, UseBoundStore, StoreApi } from 'zustand'
 
+import { getCookie } from '@utils/cookie';
+
 export type User = {
     firstName: string;
     lastName: string;
@@ -19,7 +21,7 @@ export type UseAuthStore = {
 }
 
 export const useAuthStore: UseBoundStore<StoreApi<UseAuthStore>> = create((set) => ({
-    isAuthenticated: false,
+    isAuthenticated: Boolean(getCookie('accessToken')),
     user: null,
     accessToken: null,
     refreshToken: null,
