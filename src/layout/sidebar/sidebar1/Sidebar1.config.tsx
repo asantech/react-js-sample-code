@@ -96,18 +96,26 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
             label: "tanstack-query",
             linkPath: "/tanstack-query",
           },
+        ],
+      },
+    ],
+  },
+  {
+    label: "libraries",
+    iconPath: "",
+    linkPath: "/libraries",
+    menu: [
+      {
+        label: "React JS",
+        linkPath: "/react-js",
+        menu: [
           {
-            label: "React JS",
-            linkPath: "/react-js",
-            menu: [
-              {
-                label: "built-in hooks",
-                linkPath: "/built-in-hooks",
-              },
-            ],
+            label: "built-in hooks",
+            linkPath: "/built-in-hooks",
           },
         ],
       },
+ 
     ],
   },
   {
