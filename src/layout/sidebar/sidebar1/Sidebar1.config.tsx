@@ -15,164 +15,189 @@ export type SidebarMenuGroupType = {
 
 export const SIDEBAR_CONFIG: SidebarMenuType = [
   {
-    label: "auth",
-    iconPath: "",
-    linkPath: "/auth",
+    label: 'auth',
+    iconPath: '',
+    linkPath: '/auth',
     menu: [
       {
-        label: "OAuth",
-        linkPath: "/o-auth",
-      },
-    ],
+        label: 'OAuth',
+        linkPath: '/o-auth'
+      }
+    ]
   },
   {
-    label: "routes",
-    linkPath: "/routes",
-    iconPath: "",
+    label: 'routes',
+    linkPath: '/routes',
+    iconPath: ''
   },
   {
-    label: "layouts",
-    linkPath: "/layouts",
-    iconPath: "",
+    label: 'layouts',
+    linkPath: '/layouts',
+    iconPath: '',
     menu: [
       {
-        label: "sidebars",
-        linkPath: "/sidebar",
-        iconPath: "",
-      },
-    ],
+        label: 'sidebars',
+        linkPath: '/sidebar',
+        iconPath: ''
+      }
+    ]
   },
   {
-    label: "components",
-    iconPath: "",
-    linkPath: "/components",
+    label: 'components',
+    iconPath: '',
+    linkPath: '/components',
     menu: [
       {
-        label: "dropdowns",
-        linkPath: "/dropdowns",
+        label: 'dropdowns',
+        linkPath: '/dropdowns'
       },
       {
-        label: "date pickers",
-        linkPath: "/date-pickers",
+        label: 'date pickers',
+        linkPath: '/date-pickers'
       },
       {
-        label: "sliders",
-        linkPath: "/sliders",
-      },
-    ],
+        label: 'sliders',
+        linkPath: '/sliders'
+      }
+    ]
   },
   {
-    label: "services",
-    iconPath: "",
-    linkPath: "/services",
+    label: 'services',
+    iconPath: '',
+    linkPath: '/services',
     menu: [
       {
-        label: "native",
-        linkPath: "/native",
+        label: 'native',
+        linkPath: '/native',
         menu: [
           {
-            label: "mock",
-            linkPath: "/mock",
+            label: 'mock',
+            linkPath: '/mock'
           },
           {
-            label: "XMLHttpRequest",
-            linkPath: "/xml-http-request",
+            label: 'XMLHttpRequest',
+            linkPath: '/xml-http-request'
           },
           {
-            label: "fetch",
-            linkPath: "/fetch",
-          },
-        ],
+            label: 'fetch',
+            linkPath: '/fetch'
+          }
+        ]
       },
       {
-        label: "libraries",
-        linkPath: "/libraries",
+        label: 'libraries',
+        linkPath: '/libraries',
         menu: [
           {
-            label: "axios",
-            linkPath: "/axios",
+            label: 'axios',
+            linkPath: '/axios'
           },
           {
-            label: "tanstack-query",
-            linkPath: "/tanstack-query",
-          },
-        ],
-      },
-    ],
+            label: 'tanstack-query',
+            linkPath: '/tanstack-query'
+          }
+        ]
+      }
+    ]
   },
   {
-    label: "libraries",
-    iconPath: "",
-    linkPath: "/libraries",
+    label: 'libraries',
+    iconPath: '',
+    linkPath: '/libraries',
     menu: [
       {
-        label: "React JS",
-        linkPath: "/react-js",
+        label: 'React JS',
+        linkPath: '/react-js',
         menu: [
           {
-            label: "built-in hooks",
-            linkPath: "/built-in-hooks",
-          },
-        ],
-      },
- 
-    ],
+            label: 'built-in hooks',
+            linkPath: '/built-in-hooks',
+            menu: [
+              {
+                label: 'useState',
+                linkPath: '/use-state'
+              },
+              {
+                label: 'useRef',
+                linkPath: '/use-ref'
+              },
+              {
+                label: 'useEffect',
+                linkPath: '/use-effect'
+              },
+              {
+                label: 'useMemo',
+                linkPath: '/use-memo'
+              },
+              {
+                label: 'useImperativeHandle',
+                linkPath: '/use-imperative-handle'
+              },
+              {
+                label: 'useCallback',
+                linkPath: '/use-callback'
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
-    label: "media",
-    iconPath: "",
-    linkPath: "/media",
+    label: 'media',
+    iconPath: '',
+    linkPath: '/media',
     menu: [
       {
-        label: "audio",
-        linkPath: "/audio",
+        label: 'audio',
+        linkPath: '/audio',
         menu: [
           {
-            label: "players",
-            linkPath: "/players",
-          },
-        ],
+            label: 'players',
+            linkPath: '/players'
+          }
+        ]
       },
       {
-        label: "video",
-        linkPath: "/video",
+        label: 'video',
+        linkPath: '/video',
         menu: [
           {
-            label: "players",
-            linkPath: "/players",
-          },
-        ],
-      },
-    ],
+            label: 'players',
+            linkPath: '/players'
+          }
+        ]
+      }
+    ]
   },
   {
-    label: "settings",
-    iconPath: "",
-    linkPath: "/settings",
+    label: 'settings',
+    iconPath: '',
+    linkPath: '/settings',
     menu: [
       {
-        label: "profiles",
-        linkPath: "/profiles",
+        label: 'profiles',
+        linkPath: '/profiles'
       },
       {
-        label: "sessions",
-        linkPath: "/sessions",
+        label: 'sessions',
+        linkPath: '/sessions'
       },
       {
-        label: "themes",
-        linkPath: "/themes",
-      },
-    ],
+        label: 'themes',
+        linkPath: '/themes'
+      }
+    ]
   },
   {
-    label: "UI",
-    iconPath: "",
-    linkPath: "/ui",
+    label: 'UI',
+    iconPath: '',
+    linkPath: '/ui',
     menu: [
       {
-        label: "icons",
-        linkPath: "/icons",
-      },
-    ],
-  },
+        label: 'icons',
+        linkPath: '/icons'
+      }
+    ]
+  }
 ]

@@ -1,11 +1,11 @@
-import { useState, PropsWithChildren } from "react"
-import has from "lodash/has"
-import clsx from "clsx"
+import { useState, PropsWithChildren } from 'react'
+import has from 'lodash/has'
+import clsx from 'clsx'
 
-import MenuItem1 from "./MenuItem1"
-import { SidebarMenuGroupType, SidebarMenuItemType } from "../Sidebar1.config"
-import { HIGHEST_BG_COLOR_LEVEL, THEME_COLORS } from "./MenuGroup1.utils"
-import ArrowIcon1 from "@components/common/icons/ArrowIcon1"
+import MenuItem1 from './MenuItem1'
+import { SidebarMenuGroupType, SidebarMenuItemType } from '../Sidebar1.config'
+import { HIGHEST_BG_COLOR_LEVEL, THEME_COLORS } from './MenuGroup1.utils'
+import ArrowIcon1 from '@components/common/icons/ArrowIcon1'
 
 type MenuGroup1Props = {
   className?: string
@@ -20,26 +20,26 @@ function MenuGroup1({
   nestedLevel = 1,
   className,
   accumulatedLinkPath,
-  minified,
+  minified
 }: Readonly<PropsWithChildren<MenuGroup1Props>>) {
   const [collapsed, setCollapsed] = useState(true)
 
-  const hasMenu = has(config, "menu")
+  const hasMenu = has(config, 'menu')
   const label = config.label
   const colorLevel = HIGHEST_BG_COLOR_LEVEL - nestedLevel
   const labelIndentation = minified ? 8 : 16
 
   const toggleCollapse = () => {
-    setCollapsed((collapsedState) => !collapsedState)
+    setCollapsed(collapsedState => !collapsedState)
   }
 
   if (!hasMenu)
     return (
       <MenuItem1
         className={clsx(
-          "py-2 text-white mb-1 rounded-lg",
+          'py-2 text-white mb-1 rounded-lg',
           THEME_COLORS[colorLevel],
-          nestedLevel === 1 && "mb-1 font-medium"
+          nestedLevel === 1 && 'mb-1 font-medium'
         )}
         label={label}
         linkPath={accumulatedLinkPath}
@@ -49,39 +49,39 @@ function MenuGroup1({
     )
   return (
     <div
-      className={clsx(nestedLevel === 1 && "mb-1")}
-      style={{ direction: "ltr" }}
+      className={clsx(nestedLevel === 1 && 'mb-1')}
+      style={{ direction: 'ltr' }}
     >
       <button
         className={clsx(
-          `flex justify-between items-center w-full py-2 rounded-lg mb-1`,
+          `flex justify-between items-center w-full py-2 rounded-lg mb-1 outline-none`,
           THEME_COLORS[colorLevel],
-          nestedLevel === 1 && "font-medium",
+          nestedLevel === 1 && 'font-medium',
           className
         )}
         style={{
-          paddingRight: labelIndentation,
+          paddingRight: labelIndentation
         }}
         onClick={toggleCollapse}
       >
         <span
-          className={"text-white one-line-ellipsis"}
+          className={'text-white one-line-ellipsis'}
           style={{
             paddingLeft: `${nestedLevel * labelIndentation}px`,
-            paddingRight: `${nestedLevel * labelIndentation}px`,
+            paddingRight: `${nestedLevel * labelIndentation}px`
           }}
         >
           {label}
         </span>
         <ArrowIcon1
-          className={clsx("w-3 h3", !collapsed && "rotate-180")}
-          color="white"
-          style={{ fill: "white" }}
+          className={clsx('w-3 h3', !collapsed && 'rotate-180')}
+          color='white'
+          style={{ fill: 'white' }}
         />
       </button>
       {!collapsed && (
-        <div className="">
-          {config.menu.map((conf: MenuGroup1Props["config"], index: number) => {
+        <div className=''>
+          {config.menu.map((conf: MenuGroup1Props['config'], index: number) => {
             const key = index
             return (
               <MenuGroup1
