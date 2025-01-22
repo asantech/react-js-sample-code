@@ -136,6 +136,14 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
               {
                 label: 'useCallback',
                 linkPath: '/use-callback'
+              },
+              {
+                label: 'useDebugged',
+                linkPath: '/use-debugged'
+              },
+              {
+                label: 'useDeffered',
+                linkPath: '/use-deferred'
               }
             ]
           }
