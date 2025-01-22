@@ -26,21 +26,23 @@ function MenuGroup1({
 
   const hasMenu = has(config, 'menu')
   const label = config.label
-  const colorLevel = HIGHEST_BG_COLOR_LEVEL - nestedLevel
+  const colorLevel = HIGHEST_BG_COLOR_LEVEL - nestedLevel + 1
   const labelIndentation = minified ? 8 : 16
 
   const toggleCollapse = () => {
     setCollapsed(collapsedState => !collapsedState)
   }
 
+  const menuItemClassName = clsx(
+    'py-2 text-white mb-1 rounded-lg',
+    THEME_COLORS[colorLevel],
+    nestedLevel === 1 && 'mb-1 font-medium'
+  )
+
   if (!hasMenu)
     return (
       <MenuItem1
-        className={clsx(
-          'py-2 text-white mb-1 rounded-lg',
-          THEME_COLORS[colorLevel],
-          nestedLevel === 1 && 'mb-1 font-medium'
-        )}
+        className={menuItemClassName}
         label={label}
         linkPath={accumulatedLinkPath}
         labelIndentation={labelIndentation}
