@@ -128,6 +128,28 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
     ],
   },
   {
+    label: "Algorithms",
+    iconPath: "",
+    linkPath: "/algorithms",
+    menu: [
+      {
+        label: "Greedy",
+        linkPath: "/greedy",
+      },
+    ],
+  },
+  {
+    label: "Computational Problems",
+    iconPath: "",
+    linkPath: "/computational-problems",
+    menu: [
+      {
+        label: "Knapsack",
+        linkPath: "/knapsack",
+      },
+    ],
+  },
+  {
     label: "settings",
     iconPath: "",
     linkPath: "/settings",
