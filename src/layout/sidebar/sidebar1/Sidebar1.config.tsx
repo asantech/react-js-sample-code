@@ -138,12 +138,12 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
                 linkPath: '/use-callback'
               },
               {
-                label: 'useDebugged',
-                linkPath: '/use-debugged'
+                label: 'useDebuggedValue',
+                linkPath: '/use-debugged-value'
               },
               {
-                label: 'useDeffered',
-                linkPath: '/use-deferred'
+                label: 'useDefferedValue',
+                linkPath: '/use-deferred-value'
               }
             ]
           }

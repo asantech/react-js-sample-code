@@ -17,8 +17,10 @@ export const routes = Object.freeze({
         USE_CALLBACK: '/libraries/react-js/built-in-hooks/use-callback',
         USE_IMPERATIVE_HANDLE:
           '/libraries/react-js/built-in-hooks/use-imperative-handle',
-        USE_DEBUGGED: '/libraries/react-js/built-in-hooks/use-debugged',
-        USE_DEFERRED: '/libraries/react-js/built-in-hooks/use-deferred'
+        USE_DEBUGGED_VALUE:
+          '/libraries/react-js/built-in-hooks/use-debugged-value',
+        USE_DEFERRED_VALUE:
+          '/libraries/react-js/built-in-hooks/use-deferred-value'
       }
     }
   },
