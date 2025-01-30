@@ -11,7 +11,7 @@ function Segment({ className, children }: SegmentProps) {
   return (
     <div
       className={clsx(
-        'p-5 min-h-10 w-100 rounded border-2 border-dashed border-sky-200',
+        'p-5 min-h-10 w-full rounded border-2 border-dashed border-sky-200',
         className
       )}
     >

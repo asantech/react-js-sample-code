@@ -1,5 +1,6 @@
 import Segment from '@components/common/segments/Segment'
 import UseDefferedValueCase1 from './UseDefferedValueCase1'
+import UseDefferedValueCase2 from './UseDefferedValueCase2'
 
 function UseDefferedValue() {
   return (
@@ -11,6 +12,9 @@ function UseDefferedValue() {
       </div>
       <Segment className='mb-5'>
         <UseDefferedValueCase1 />
+      </Segment>
+      <Segment className='mb-5'>
+        <UseDefferedValueCase2 />
       </Segment>
     </>
   )

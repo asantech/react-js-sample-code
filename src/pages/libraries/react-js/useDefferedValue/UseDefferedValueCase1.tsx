@@ -1,20 +1,34 @@
-import CustomButton from '@components/common/buttons/CustomButton'
+import { useState, useRef } from 'react'
 
 function UseDefferedValueCase1() {
   return (
     <>
-      <h1 className='mb-4'>
-        Case 1: a useDeferred doesn't do first render if initial value not set
-      </h1>
-      This is the initial color of the component
-      <div className='w-96 h-96'></div>
-      <CustomButton></CustomButton>
+      <h2 className='mb-4'>
+        Rendered count is one more than set render count (in non strict mode)
+      </h2>
+      <DefferedComponent />
     </>
   )
 }
 
-export default UseDefferedValueCase1
+const DefferedComponent = () => {
+  const renderedCountRef = useRef(0)
+  const [renderCount, setRenderCount] = useState(0)
 
-// const generateAHighCalculatedValue = () => {
-//   for (let i = 0; i <= 6000000000; i++) {}
-// }
+  renderedCountRef.current++
+  return (
+    <button
+      className='rounded border-2 border-dashed border-sky-200 bg-sky-100 aspect-square p-4 cursor-pointer'
+      onClick={() => {
+        setRenderCount(prev => prev + 1)
+      }}
+    >
+      <p>rendered count:</p>
+      <p>{renderedCountRef.current}</p>
+      <p>renderCount:</p>
+      <p>{renderCount}</p>
+    </button>
+  )
+}
+
+export default UseDefferedValueCase1
