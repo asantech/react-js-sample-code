@@ -1,22 +1,23 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
-import { routes } from "@routes/routes"
-import { removeFromLocalStorage } from "@utils/localStorage"
-import { useAuthStore } from "@store/auth"
+import { routes } from '@routes/routes'
+import { removeFromLocalStorage } from '@utils/localStorage'
+import { useAuthStore } from '@store/auth'
 
 const useAuth = () => {
   const navigate = useNavigate()
-  const removeUser = useAuthStore((state) => state.removeUser)
+  const removeUser = useAuthStore(state => state.removeUser)
 
   const signOutMock = () => {
-    removeFromLocalStorage("auth")
-    removeFromLocalStorage("user")
+    removeFromLocalStorage('auth')
+    removeFromLocalStorage('user')
+    removeFromLocalStorage('token')
     removeUser()
     navigate(routes.AUTH.SIGN_IN)
   }
 
   return {
-    signOutMock,
+    signOutMock
   }
 }
 

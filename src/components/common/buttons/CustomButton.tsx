@@ -1,12 +1,12 @@
-import { PropsWithChildren } from "react"
-import clsx from "clsx"
+import { PropsWithChildren } from 'react'
+import clsx from 'clsx'
 
-import { Variant } from "@type/styles"
-import { buttonVariants } from "./CustomButton.constants"
-import CustomSpinner from "../spinners/CustomSpinner"
+import { Variant } from '@type/styles'
+import { buttonVariants } from './CustomButton.constants'
+import CustomSpinner from '../spinners/CustomSpinner'
 
 type CustomButtonProps = {
-  type?: "button" | "submit"
+  type?: 'button' | 'submit'
   variant?: Variant
   className?: string
   isLoading?: boolean
@@ -16,17 +16,17 @@ type CustomButtonProps = {
 
 function CustomButton({
   children,
-  type = "button",
+  type = 'button',
   variant,
   className,
   isLoading,
   isDisabled,
-  onClick,
+  onClick
 }: Readonly<PropsWithChildren<CustomButtonProps>>) {
   return (
     <button
       className={clsx(
-        "inline-flex gap-4 py-3 px-5 rounded-lg font-semibold hover:bg-sky-600 hover:text-white focus:ring focus:ring-sky-300",
+        'inline-flex items-center gap-4 py-3 px-5 rounded-lg font-semibold hover:bg-sky-600 hover:text-white focus:ring focus:ring-sky-300 cursor-pointer',
         variant && buttonVariants[variant],
         className
       )}

@@ -533,11 +533,17 @@
   .static {
     position: static;
   }
+  .-top-18 {
+    top: calc(var(--spacing) * -18);
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
   .top-14 {
     top: calc(var(--spacing) * 14);
+  }
+  .top-18 {
+    top: calc(var(--spacing) * 18);
   }
   .right-0 {
     right: calc(var(--spacing) * 0);
@@ -547,6 +553,27 @@
   }
   .right-10 {
     right: calc(var(--spacing) * 10);
+  }
+  .-bottom-8 {
+    bottom: calc(var(--spacing) * -8);
+  }
+  .-bottom-12 {
+    bottom: calc(var(--spacing) * -12);
+  }
+  .-bottom-16 {
+    bottom: calc(var(--spacing) * -16);
+  }
+  .-bottom-18 {
+    bottom: calc(var(--spacing) * -18);
+  }
+  .-bottom-20 {
+    bottom: calc(var(--spacing) * -20);
+  }
+  .bottom-0 {
+    bottom: calc(var(--spacing) * 0);
+  }
+  .bottom-8 {
+    bottom: calc(var(--spacing) * 8);
   }
   .bottom-14 {
     bottom: calc(var(--spacing) * 14);
@@ -569,8 +596,17 @@
   .ms-auto {
     margin-inline-start: auto;
   }
+  .mr-1 {
+    margin-right: calc(var(--spacing) * 1);
+  }
   .mr-2 {
     margin-right: calc(var(--spacing) * 2);
+  }
+  .mr-3 {
+    margin-right: calc(var(--spacing) * 3);
+  }
+  .mr-4 {
+    margin-right: calc(var(--spacing) * 4);
   }
   .mb-0 {
     margin-bottom: calc(var(--spacing) * 0);
@@ -638,9 +674,6 @@
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
-  .h-24 {
-    height: calc(var(--spacing) * 24);
-  }
   .h-96 {
     height: calc(var(--spacing) * 96);
   }
@@ -680,15 +713,6 @@
   .w-11 {
     width: calc(var(--spacing) * 11);
   }
-  .w-24 {
-    width: calc(var(--spacing) * 24);
-  }
-  .w-96 {
-    width: calc(var(--spacing) * 96);
-  }
-  .w-100 {
-    width: calc(var(--spacing) * 100);
-  }
   .w-11\/12 {
     width: calc(11/12 * 100%);
   }
@@ -697,6 +721,9 @@
   }
   .w-40 {
     width: calc(var(--spacing) * 40);
+  }
+  .w-96 {
+    width: calc(var(--spacing) * 96);
   }
   .w-full {
     width: 100%;
@@ -707,14 +734,8 @@
   .max-w-96 {
     max-width: calc(var(--spacing) * 96);
   }
-  .flex-grow {
-    flex-grow: 1;
-  }
-  .grow {
-    flex-grow: 1;
-  }
-  .grow-1 {
-    flex-grow: 1;
+  .min-w-lg {
+    min-width: var(--container-lg);
   }
   .border-collapse {
     border-collapse: collapse;
@@ -754,9 +775,6 @@
   }
   .justify-start {
     justify-content: flex-start;
-  }
-  .gap-2 {
-    gap: calc(var(--spacing) * 2);
   }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
