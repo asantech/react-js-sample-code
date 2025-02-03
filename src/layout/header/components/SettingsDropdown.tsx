@@ -5,6 +5,7 @@ import CustomButton from '@components/common/buttons/CustomButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse } from '@fortawesome/free-solid-svg-icons'
 import { getLocalStorage, setLocalStorage } from '@utils/localStorage'
+import Divider1 from '@components/common/dividers/Divider1'
 
 type SettingsDropdownProps = {
   className?: string
@@ -27,8 +28,9 @@ const SettingsDropdown = ({ className }: SettingsDropdownProps) => {
         <FontAwesomeIcon icon={faHouse} />
       </CustomButton>
       {isOpen && (
-        <div className='min-w-lg p-5 rounded-lg bg-white absolute top-14 right-0'>
+        <div className='min-w-lg p-5 rounded-lg bg-white absolute top-14 right-0 border-2 border-sky-600'>
           <IsInStrictModeTool1 />
+          <Divider1 />
           {/* <IsInStrictModeTool2 /> */}
         </div>
       )}
@@ -52,14 +54,14 @@ const IsInStrictModeTool1 = () => {
   }
 
   return (
-    <>
-      <span>Is Strict Mode:</span>
+    <div className='flex items-center'>
+      <span className='text-gray-700 font-semibold mr-2'>Is Strict Mode:</span>
       <input
         type='checkbox'
         checked={isStrictMode}
         onChange={toggleStrictMode}
       />
-    </>
+    </div>
   )
 }
 
