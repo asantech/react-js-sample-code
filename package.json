@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "workspaces": [
+    "apps/react-19",
+    "apps/react-18",
+    "packages/ui"
+  ],
+  "scripts": {
+    "start:react18": "npm run dev --workspace=apps/react-18",
+    "start:react19": "npm run dev --workspace=apps/react-19",
+    "build:react19": "npm run --workspace=react19-project build",
+    "build:react18": "npm run --workspace=react18-project build",
+    "build:all": "npm run build:react19 && npm run build:react18"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.4",
+    "clsx": "^2.1.1",
+    "crypto-js": "^4.2.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.4",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4"
+  }
+}
