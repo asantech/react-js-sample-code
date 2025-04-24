@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef, ChangeEvent } from "react"
 import clsx from "clsx"
+import closeIcon from "../../../assets/close.svg"
 
 import CustomSpinner from "../spinners/CustomSpinner"
 import Dropdown3 from "./Dropdown3"
@@ -24,7 +25,7 @@ const ClearSearchTextButton = ({
       className="w-5 h-5 absolute right-5 cursor-pointer"
       onClick={clearSearchText}
     >
-      <img src="/icons/close.svg" alt="Close Icon" />
+      <img src={closeIcon} alt="Close Icon" />
     </button>
   )
 }
