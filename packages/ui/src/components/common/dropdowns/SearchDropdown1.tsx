@@ -15,7 +15,7 @@ import {
   SpinnerWrapperProps,
   SearchInputProps,
 } from "./SearchDropdown.utils"
-import closeIcon from "../../../assets/close.svg"
+import closeIcon from "../../../assets/icons/close.svg"
 
 const SearchDropdown1 = ({
   className = "",

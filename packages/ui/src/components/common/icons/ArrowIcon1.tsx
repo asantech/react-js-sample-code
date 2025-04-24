@@ -1,8 +1,8 @@
 import React, { CSSProperties } from "react"
 
 import clsx from "clsx"
-import downArrow from "../../../assets/down-arrow.svg"
-import downArrowWhite from "../../../assets/down-arrow-white.svg"
+import downArrow from "../../../assets/icons/down-arrow.svg"
+import downArrowWhite from "../../../assets/icons/down-arrow-white.svg"
 
 type ArrowIcon1Props = {
   className?: string

@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, ChangeEvent } from "react"
 import clsx from "clsx"
-import closeIcon from "../../../assets/close.svg"
+import closeIcon from "../../../assets/icons/close.svg"
 
 import CustomSpinner from "../spinners/CustomSpinner"
 import Dropdown3 from "./Dropdown3"

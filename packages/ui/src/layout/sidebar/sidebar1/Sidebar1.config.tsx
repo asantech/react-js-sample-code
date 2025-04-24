@@ -84,19 +84,16 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
           },
         ],
       },
+    ],
+  },
+  {
+    label: "libraries",
+    iconPath: "",
+    linkPath: "/libraries",
+    menu: [
       {
-        label: "libraries",
-        linkPath: "/libraries",
-        menu: [
-          {
-            label: "axios",
-            linkPath: "/axios",
-          },
-          {
-            label: "tanstack-query",
-            linkPath: "/tanstack-query",
-          },
-        ],
+        label: "tanstack-query",
+        linkPath: "/tanstack-query",
       },
     ],
   },

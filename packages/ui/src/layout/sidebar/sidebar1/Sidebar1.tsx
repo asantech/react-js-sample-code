@@ -2,7 +2,7 @@ import React from "react"
 import clsx from "clsx"
 
 import MenuGroup1 from "./components/MenuGroup1"
-import logo from "../../../assets/logo.png"
+import logo from "../../../assets/images/logo.png"
 import {
   SidebarMenuItemType,
   SidebarMenuGroupType,
