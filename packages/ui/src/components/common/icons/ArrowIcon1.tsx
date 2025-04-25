@@ -1,6 +1,8 @@
 import React, { CSSProperties } from "react"
 
 import clsx from "clsx"
+import downArrow from "../../../assets/icons/down-arrow.svg"
+import downArrowWhite from "../../../assets/icons/down-arrow-white.svg"
 
 type ArrowIcon1Props = {
   className?: string
@@ -12,7 +14,7 @@ const ArrowIcon1 = ({ className, style, color }: Readonly<ArrowIcon1Props>) => {
   return (
     <div style={style}>
       <img
-        src={color ? `/icons/down-arrow-${color}.svg` : "/icons/down-arrow.svg"}
+        src={color ? downArrowWhite : downArrow}
         alt="Down Arrow Icon"
         className={clsx(className ?? "w-5 h-5")}
       />

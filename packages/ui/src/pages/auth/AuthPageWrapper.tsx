@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react"
 
 import { colors } from "../../constants/colors"
-import logo from "../../../../../packages/ui/src/assets/logo.png"
+import logo from "../../../../../packages/ui/src/assets/images/logo.png"
 
 function AuthPageWrapper({ children }: Readonly<PropsWithChildren>) {
   return (

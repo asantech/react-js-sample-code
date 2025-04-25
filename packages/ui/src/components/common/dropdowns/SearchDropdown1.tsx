@@ -15,6 +15,7 @@ import {
   SpinnerWrapperProps,
   SearchInputProps,
 } from "./SearchDropdown.utils"
+import closeIcon from "../../../assets/icons/close.svg"
 
 const SearchDropdown1 = ({
   className = "",
@@ -117,7 +118,7 @@ const ClearSearchTextButton = ({
       className="w-5 h-5 absolute right-5 cursor-pointer"
       onClick={clearSearchText}
     >
-      <img src="/icons/close.svg" alt="Close Icon" />
+      <img src={closeIcon} alt="Close Icon" />
     </button>
   )
 }
