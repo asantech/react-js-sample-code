@@ -128,6 +128,40 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
     ],
   },
   {
+    label: "topics",
+    iconPath: "",
+    linkPath: "/topics",
+    menu: [
+      {
+        label: "JS",
+        linkPath: "/js",
+      },
+      {
+        label: "React JS",
+        linkPath: "/react-js",
+      },
+      {
+        label: "Security",
+        linkPath: "/security",
+      },
+    ],
+  },
+  {
+    label: "quiz",
+    iconPath: "",
+    linkPath: "/quiz",
+    menu: [
+      {
+        label: "JS",
+        linkPath: "/js",
+      },
+      {
+        label: "React JS",
+        linkPath: "/react-js",
+      },
+    ],
+  },
+  {
     label: "settings",
     iconPath: "",
     linkPath: "/settings",

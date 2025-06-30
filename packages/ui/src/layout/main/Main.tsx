@@ -1,4 +1,3 @@
-import React from "react"
 import DashboardRoutes from "../../routes/DashboardRoutes"
 
 function Main() {
