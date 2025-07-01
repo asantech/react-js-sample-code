@@ -19,12 +19,17 @@ function MenuItem1({
 }: Readonly<MenuItem1Props>) {
   return (
     <Link
-      className={clsx("block one-line-ellipsis", className)}
+      className={clsx(
+        "block one-line-ellipsis hover:bg-sky-500 transition-colors duration-200 rounded-lg",
+        className
+      )}
       to={linkPath}
       style={{
         direction: "ltr",
         paddingLeft: `${nestedLevel * labelIndentation}px`,
         paddingRight: `${labelIndentation}px`,
+        paddingTop: "12px",
+        paddingBottom: "12px",
       }}
     >
       {label}
