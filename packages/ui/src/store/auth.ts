@@ -1,4 +1,4 @@
-import { create, UseBoundStore, StoreApi } from "zustand"
+import { create } from "zustand"
 
 import { getCookie } from "../utils/cookie"
 
@@ -19,27 +19,25 @@ export type UseAuthStore = {
   removeUser: () => void
 }
 
-export const useAuthStore: UseBoundStore<StoreApi<UseAuthStore>> = create(
-  (set) => ({
-    isAuthenticated: Boolean(getCookie("accessToken")),
-    user: null,
-    accessToken: null,
-    refreshToken: null,
-    setUser: (data: any) =>
-      set((state) => ({
-        ...state,
-        user: data.user,
-        isAuthenticated: true,
-        accessToken: data.auth?.accessToken,
-        refreshToken: data.auth?.refreshToken,
-      })),
-    removeUser: () =>
-      set((state) => ({
-        ...state,
-        user: null,
-        isAuthenticated: false,
-        accessToken: null,
-        refreshToken: null,
-      })),
-  })
-)
+export const useAuthStore = create<UseAuthStore>((set) => ({
+  isAuthenticated: Boolean(getCookie("accessToken")),
+  user: null,
+  accessToken: null,
+  refreshToken: null,
+  setUser: (data: any) =>
+    set((state) => ({
+      ...state,
+      user: data.user,
+      isAuthenticated: true,
+      accessToken: data.auth?.accessToken,
+      refreshToken: data.auth?.refreshToken,
+    })),
+  removeUser: () =>
+    set((state) => ({
+      ...state,
+      user: null,
+      isAuthenticated: false,
+      accessToken: null,
+      refreshToken: null,
+    })),
+}))
