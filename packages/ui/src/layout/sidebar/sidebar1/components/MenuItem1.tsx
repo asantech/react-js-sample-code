@@ -28,8 +28,8 @@ function MenuItem1({
         direction: "ltr",
         paddingLeft: `${nestedLevel * labelIndentation}px`,
         paddingRight: `${labelIndentation}px`,
-        paddingTop: "12px",
-        paddingBottom: "12px",
+        paddingTop: "8px",
+        paddingBottom: "8px",
       }}
     >
       {label}

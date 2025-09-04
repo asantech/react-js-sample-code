@@ -156,8 +156,20 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
         linkPath: "/js",
       },
       {
+        label: "JS Notes",
+        linkPath: "/js-notes",
+      },
+      {
         label: "React JS",
         linkPath: "/react-js",
+      },
+      {
+        label: "React JS Sources",
+        linkPath: "/react-js-sources",
+      },
+      {
+        label: "Web Fundamentals",
+        linkPath: "/web-fundamentals",
       },
     ],
   },
@@ -188,6 +200,10 @@ export const SIDEBAR_CONFIG: SidebarMenuType = [
       {
         label: "icons",
         linkPath: "/icons",
+      },
+      {
+        label: "tailwind",
+        linkPath: "/tailwind",
       },
     ],
   },

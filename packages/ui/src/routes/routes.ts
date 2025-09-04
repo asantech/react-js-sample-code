@@ -15,6 +15,9 @@ export const routes = Object.freeze({
   },
   QUIZ: {
     JS: "/quiz/js",
+    JS_NOTES: "/quiz/js-notes",
     REACT_JS: "/quiz/react-js",
+    REACT_JS_SOURCES: "/quiz/react-js-sources",
+    WEB_FUNDAMENTALS: "/quiz/web-fundamentals",
   },
 })
